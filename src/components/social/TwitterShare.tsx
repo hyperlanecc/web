@@ -54,7 +54,7 @@ export default function TwitterShare({
   description,
   url,
   hashtags = [],
-  via = 'gmonad_cc',
+  via = 'hyperlane_cc',
   type = 'link',
   size = 'middle',
   buttonText = '分享到推特',
@@ -140,7 +140,7 @@ export const TwitterSharePresets = {
     title: `📝 ${title}`,
     description: excerpt,
     url,
-    hashtags: ['区块链', 'Web3', 'Monad', '技术分享'],
+    hashtags: ['区块链', 'Web3', 'Hyperlane', '技术分享'],
     buttonText: '分享文章',
   }),
 
@@ -151,7 +151,7 @@ export const TwitterSharePresets = {
     title: `🎉 ${title}`,
     description: description,
     url,
-    hashtags: ['活动', 'Monad', 'Web3', '区块链'],
+    hashtags: ['活动', 'Hyperlane', 'Web3', '区块链'],
     buttonText: '分享活动',
   }),
 
@@ -162,7 +162,7 @@ export const TwitterSharePresets = {
     title: `🎓 ${title}`,
     description: description,
     url,
-    hashtags: ['教程', 'Web3', 'Monad', '学习'],
+    hashtags: ['教程', 'Web3', 'Hyperlane', '学习'],
     buttonText: '分享教程',
   }),
 
@@ -173,7 +173,7 @@ export const TwitterSharePresets = {
     title: `🚀 发现了一个不错的DApp：${name}`,
     description: description,
     url,
-    hashtags: ['DApp', 'Web3', 'Monad', '去中心化应用'],
+    hashtags: ['DApp', 'Web3', 'Hyperlane', '去中心化应用'],
     buttonText: '分享DApp',
   }),
 
@@ -183,7 +183,7 @@ export const TwitterSharePresets = {
   community: (content: string, url?: string) => ({
     title: `💬 ${content}`,
     url,
-    hashtags: ['社区', 'Monad', 'Web3'],
+    hashtags: ['社区', 'Hyperlane', 'Web3'],
     buttonText: '分享动态',
   }),
 };

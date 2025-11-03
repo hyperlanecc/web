@@ -83,16 +83,14 @@ export default function Header() {
           <Link href="/" passHref>
             <div className={styles.logoInfo} style={{ cursor: 'pointer' }}>
               <Image preview={false} width={30} src="/logo.png" className={styles.logo} />
-              <span className={styles.logoTitle}>Monad 中文社区</span>
+              <span className={styles.logoTitle}>Hyperlane 中文社区</span>
             </div>
           </Link>
           <nav className={styles.nav}>
             <Dropdown
               menu={{
                 items: [
-                  { key: 'monad', label: <Link href="/monad">了解 Monad </Link> },
-                  { key: 'testnet', label: <Link href="/testnet">了解测试网</Link> },
-                  { key: 'dapps', label: <Link href="/ecosystem/dapps"> Dapps 列表 </Link> },
+                  { key: 'hyperlane', label: <Link href="/hyperlane">了解 Hyperlane </Link> },
                   { key: 'tutorials', label: <Link href="/ecosystem/tutorials"> 交互教程 </Link> },
                 ],
               }}
@@ -108,8 +106,8 @@ export default function Header() {
               menu={{
                 items: [
                   { key: 'docs', label: <Link href="/docs">开发文档</Link> },
-                  { key: 'guides', label: <Link href="https://developers.monad.xyz/#quick-start" target="_blank">开发指南</Link> },
-                  { key: 'codes', label: <Link href="https://docs.monad.xyz/guides/" target="_blank">示例代码</Link> },
+                  { key: 'guides', label: <Link href="/docs/protocol/protocol-overview" target="_blank">学习指南</Link> },
+                  { key: 'codes', label: <Link href="/docs/operate/overview-agents" target="_blank">代理操作</Link> },
                 ],
               }}
               placement="bottom"
@@ -196,17 +194,9 @@ export default function Header() {
           <div className={styles.mobileMenuSection}>
             <h3 className={styles.mobileMenuSectionTitle}>生态系统</h3>
             <div className={styles.mobileMenuLinks}>
-              <Link href="/monad" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/hyperlane" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>🚀</span>
-                <span>了解 Monad</span>
-              </Link>
-              <Link href="/testnet" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
-                <span>🧪</span>
-                <span>了解测试网</span>
-              </Link>
-              <Link href="/ecosystem/dapps" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
-                <span>🏗️</span>
-                <span>Dapps 列表</span>
+                <span>了解 Hyperlane</span>
               </Link>
               <Link href="/ecosystem/tutorials" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>📚</span>
@@ -222,13 +212,13 @@ export default function Header() {
                 <span>📖</span>
                 <span>开发文档</span>
               </Link>
-              <Link href="https://developers.monad.xyz/#quick-start" target="_blank" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/docs/protocol/protocol-overview" target="_blank" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>⚙️</span>
-                <span>开发指南</span>
+                <span>学习指南</span>
               </Link>
-              <Link href="https://docs.monad.xyz/guides/" target="_blank" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
+              <Link href="/docs/operate/overview-agents" target="_blank" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>💻</span>
-                <span>示例代码</span>
+                <span>代理操作</span>
               </Link>
             </div>
           </div>

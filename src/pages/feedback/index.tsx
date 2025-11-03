@@ -57,7 +57,7 @@ export default function FeedbackPage() {
               </p>
             </div>
             <div className={styles.heroImage}>
-              <img src="/memework.jpeg" alt="Monad 吉祥物在工作" className={styles.mascotImage} />
+              <img src="/memework.jpeg" alt="Hyperlane 吉祥物在工作" className={styles.mascotImage} />
             </div>
           </div>
         </div>

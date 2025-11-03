@@ -6,26 +6,14 @@ import styles from './index.module.css';
 export default function NewsletterSection() {
   const weeklyReports = [
     {
-      title: 'Monad 周报 #12：性能测试新突破',
+      title: 'hyperlanecc 周报 #12：性能测试新突破',
       date: '2025年9月26日',
       link: '#',
-    },
-    {
-      title: 'Monad 周报 #11：生态项目 AMA 回顾',
-      date: '2025年9月19日',
-      link: '#',
-    },
-    {
-      title: 'Monad 周报 #10：开发者激励计划启动',
-      date: '2025年9月12日',
-      link: '#',
-    },
+    }
   ];
 
   const faqs = [
-    'MonadDB 与其他数据库有何不同？',
-    'Monad 客户端是用什么语言开发的？',
-    '为什么 Monad 选择开发为 L1 区块链？',
+    'hyperlanecc 与其他数据库有何不同？',
   ];
 
   return (
@@ -35,7 +23,7 @@ export default function NewsletterSection() {
         <div className={styles.weeklyReportsSection}>
           <div className={styles.sectionHeader}>
             <Megaphone className={styles.headerIcon} />
-            <h3 className={styles.sectionTitleSmall}>Monad 中文社区周报</h3>
+            <h3 className={styles.sectionTitleSmall}>Hyperlane 中文社区周报</h3>
           </div>
           <p className={styles.sectionDescription}>
             精选社区每周的技术进展、生态更新和重要动态。
@@ -70,11 +58,11 @@ export default function NewsletterSection() {
           </ul>
           <div className={styles.communityCta}>
             <p className={styles.ctaText}>
-              还有其他问题吗？立即加入 Monad 中文社区，参与我们的技术讨论。
+              还有其他问题吗？立即加入 Hyperlane 中文社区，参与我们的技术讨论。
             </p>
             <div className={styles.ctaButtons}>
               <a
-                href="https://t.me/Chinads"
+                href="https://t.me/hyperlanecc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.ctaPrimaryButton}
@@ -83,7 +71,7 @@ export default function NewsletterSection() {
                 加入 Telegram
               </a>
               <a
-                href="https://x.com/monad_zw"
+                href="https://x.com/hyperlanecc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.ctaSecondaryButton}
@@ -95,9 +83,9 @@ export default function NewsletterSection() {
           </div>
         </div>
 
-        {/* Monad Memo / Footer Links */}
+        {/* hyperlanecc Memo / Footer Links */}
         <div className={styles.memoSection}>
-          <h2 className={styles.memoTitle}>Monad Memo</h2>
+          <h2 className={styles.memoTitle}>hyperlanecc Memo</h2>
           <div className={styles.memoGrid}>
             <div className={styles.memoColumn}>
               <h4>社区资源</h4>
@@ -106,7 +94,7 @@ export default function NewsletterSection() {
                   <a href="/">首页</a>
                 </li>
                 <li>
-                  <a href="/monad">了解 Monad</a>
+                  <a href="/hyperlane">了解 Hyperlane</a>
                 </li>
                 <li>
                   <a href="/events">社区活动</a>
@@ -119,22 +107,16 @@ export default function NewsletterSection() {
                 <li>
                   <a href="#">文档</a>
                 </li>
-                <li>
-                  <a href="#">Monad 测试网</a>
-                </li>
               </ul>
             </div>
             <div className={styles.memoColumn}>
               <h4>生态项目</h4>
               <ul>
                 <li>
-                  <a href="/ecosystem/dapps">精选 DApps</a>
+                  <a href="/ecosystem/tutorials">交互教程</a>
                 </li>
                 <li>
-                  <a href="#">Monad Madness</a>
-                </li>
-                <li>
-                  <a href="#">加速器计划</a>
+                  <a href="/ecosystem/community">社区展示</a>
                 </li>
               </ul>
             </div>
@@ -142,7 +124,7 @@ export default function NewsletterSection() {
         </div>
 
         <footer className={styles.newsletterFooter}>
-          <p>© 2025 Monad 中文社区. 保留所有权利.</p>
+          <p>© 2025 Hyperlane 中文社区. 保留所有权利.</p>
         </footer>
       </div>
     </section>

@@ -24,7 +24,7 @@ export default function App({
   Component,
   pageProps: { session, ...pageProps },
 }: AppProps) {
-  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Monad 中文社区';
+  const appName = process.env.NEXT_PUBLIC_APP_NAME || 'Hyperlane 中文社区';
 
   return (
     <SessionProvider

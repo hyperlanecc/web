@@ -308,7 +308,7 @@ export default function EventsPage() {
           <div className={styles.headerRightActions}>
             <div className={styles.socialLinks}>
               <a
-                href="https://x.com/monad_zw"
+                href="https://x.com/hyperlanecc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialButton}
@@ -317,7 +317,7 @@ export default function EventsPage() {
                 <span className={styles.socialButtonText}>关注 X</span>
               </a>
               <a
-                href="https://t.me/Chinads"
+                href="https://t.me/hyperlanecc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialButton}
@@ -326,7 +326,7 @@ export default function EventsPage() {
                 <span className={styles.socialButtonText}>加入 Telegram</span>
               </a>
               <a
-                href="https://discord.gg/monad"
+                href="https://discord.gg/hyperlanecc"
                 target="_blank"
                 rel="noopener noreferrer"
                 className={styles.socialButton}

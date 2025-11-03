@@ -21,60 +21,20 @@ const Community: NextPage = () => {
             git: 'https://github.com/lispking/pixel-snake',
             category: '链游'
         },
-        {
-            id: 3,
-            title: '像素宠物',
-            description: '在 Monad 上生成您专属的像素宠物',
-            url: 'https://pix-pet.netlify.app/',
-            git: 'https://github.com/lispking/pix-pet',
-            category: '链游'
-        },
-        {
-            id: 4,
-            title: 'Monad Gas 追踪器',
-            description: '追踪和分析您在 Monad 上的 Gas 消耗',
-            url: 'https://gas-dog.netlify.app/',
-            git: 'https://github.com/lispking/gas-dog',
-            category: '开发工具'
-        },
-        {
-            id: 5,
-            title: 'Monad 农场',
-            description: '创新的 Monad 区块链虚拟农场游戏',
-            url: 'https://meta-farm.vercel.app/',
-            git: 'https://github.com/lispking/meta-farm',
-            category: '链游'
-        },
-        {
-            id: 6,
-            title: 'NadsPixelWorld 像素格子',
-            description: 'Nads\' Home 创作属于您的像素作品',
-            url: 'https://nads-pixel-world.vercel.app/',
-            git: 'https://github.com/jjeejj/nads-pixel-world',
-            category: '链游'
-        },
-        {
-            id: 7,
-            title: 'Monad 扫雷',
-            description: 'Monad 上的扫雷游戏',
-            url: 'https://minesweeper-nextjs-steel.vercel.app/',
-            git: 'https://github.com/JameWade/minesweeper/tree/new-aa',
-            category: '链游'
-        },
         // 可以根据需要添加更多项目
     ];
 
     return (
          <div className={`${styles.container} nav-t-top`}>
             <Head>
-                <title>社区项目 | Monad</title>
-                <meta name="description" content="探索Monad生态系统中的社区项目" />
+                <title>社区项目 | Hyperlane</title>
+                <meta name="description" content="探索 Hyperlane 生态系统中的社区项目" />
             </Head>
 
             <main className={styles.main}>
                 <h1 className={styles.title}>社区项目</h1>
                 <p className={styles.description}>
-                    探索Monad社区打造的精彩项目
+                    探索 Hyperlane 社区打造的精彩项目
                 </p>
 
                 <div className={styles.grid}>

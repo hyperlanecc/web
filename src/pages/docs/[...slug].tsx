@@ -190,9 +190,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
         if (item.isDirectory()) {
           // 递归扫描子目录
           scanDirectory(fullPath, relativePath);
-        } else if (item.name.endsWith('.md')) {
-          // 添加 markdown 文件的 slug（去掉 .md 扩展名）
-          allSlugs.add(relativePath.replace(/\.md$/, ''));
+        } else if (item.name.endsWith('.mdx')) {
+          // 添加 markdown 文件的 slug（去掉 .mdx 扩展名）
+          allSlugs.add(relativePath.replace(/\.mdx$/, ''));
         }
       }
     } catch (error) {
@@ -226,7 +226,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   
   // 构建文档文件的完整路径
   const docsDirectory = path.join(process.cwd(), 'src/docs');
-  const filePath = path.join(docsDirectory, `${slug}.md`);
+  const filePath = path.join(docsDirectory, `${slug}.mdx`);
 
   try {
     // 读取 Markdown 文件内容

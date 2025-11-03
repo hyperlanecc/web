@@ -30,17 +30,12 @@ import styles from './index.module.css';
 import { SiTelegram, SiX } from 'react-icons/si';
 import { Avatar, Image } from 'antd';
 import EventSection from './events/section';
-import { getDapps } from './api/dapp';
 import ClientOnly from '../components/ClientOnly';
 
 export default function Home() {
   const router = useRouter();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [isVisible, setIsVisible] = useState(false);
-  const [dapps, setDapps] = useState<any[]>([]);
-  const pageSize = 20;
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [isHovering, setIsHovering] = useState(false);
 
   // Removed stats - currently not used as the stats section is commented out
   const [particleStyles, setParticleStyles] = useState<Array<React.CSSProperties>>([]);
@@ -72,45 +67,6 @@ export default function Home() {
   };
 
   useEffect(() => {
-    const fetchDapps = async () => {
-      try {
-        const params = {
-          is_feature: 1,
-          page: 1,
-          page_size: pageSize,
-        };
-        const result = await getDapps(params);
-        if (result.success && result.data && Array.isArray(result.data.dapps)) {
-          setDapps(result.data.dapps);
-        }
-      } catch (error) {
-        console.error("获取 DApps 列表失败:", error);
-      }
-    };
-    fetchDapps();
-  }, []);
-
-  useEffect(() => {
-    let animationFrame: number;
-    const scrollContainer = scrollRef.current;
-
-    const scroll = () => {
-      if (scrollContainer && !isHovering) {
-        scrollContainer.scrollLeft += 0.5; // 每帧增加 0.5px，可根据需要调整
-        if (scrollContainer.scrollLeft >= scrollContainer.scrollWidth - scrollContainer.clientWidth) {
-          scrollContainer.scrollLeft = 0; // 回到开头循环滚动
-        }
-      }
-      animationFrame = requestAnimationFrame(scroll);
-    };
-
-    animationFrame = requestAnimationFrame(scroll);
-
-    return () => cancelAnimationFrame(animationFrame);
-  }, [isHovering]);
-
-
-  useEffect(() => {
     setIsVisible(true);
     const handleMouseMove = (e: MouseEvent) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
@@ -134,78 +90,43 @@ export default function Home() {
 
   const features = [
     {
-      icon: <Zap className={styles.featureIcon} />,
-      title: '极致性能',
-      description: '并行执行引擎，TPS达到10,000+, 出块时间达0.5s',
+      icon: <Network className={styles.featureIcon} />,
+      title: '模块化架构',
+      description: '可自定义的互操作安全模块（ISM）和灵活的 Post-Dispatch Hooks',
+    },
+    {
+      icon: <Server className={styles.featureIcon} />,
+      title: '多虚拟机支持',
+      description: '支持 EVM、Solana VM、Cosmos SDK 等 7+ 种虚拟机',
     },
     {
       icon: <Shield className={styles.featureIcon} />,
-      title: 'EVM兼容',
-      description: '完全兼容以太坊虚拟机，现有DApp可无缝迁移',
+      title: '免费且无需许可',
+      description: '零集成费用，开源协议，任何人可部署',
     },
     {
-      icon: <Cpu className={styles.featureIcon} />,
-      title: '智能优化',
-      description: '自适应共识算法，动态调节性能，确保网络稳定运行',
-    },
-    {
-      icon: <Database className={styles.featureIcon} />,
-      title: '可扩展性',
-      description: '模块化架构设计，支持水平扩展，满足大规模应用需求',
+      icon: <Globe className={styles.featureIcon} />,
+      title: '通用消息传递',
+      description: '支持任意数据的跨链传输，实现复杂跨链应用',
     },
   ];
 
 
   const milestones = [
     {
-      date: '2022年2月',
-      title: 'Monad Labs 正式成立',
+      date: '2022年',
+      title: 'Abacus Works 成立',
       description:
-        '由 Keone Hon、James Hunsaker 和 Eunice Giarta 联合创办，开启高性能 EVM 链研究。',
+        'Abacus Works 团队成立，开始开发 Hyperlane 跨链互操作协议。',
       src: '',
       icon: <Rocket className={styles.icon} />,
     },
     {
-      date: '2023年2月',
-      title: '完成 1,900 万美元种子轮融资',
-      description: 'Dragonfly 等投资加持，为初期团队建设与闭测提供资力。',
-      src: 'https://monadxyz.substack.com/p/monad-raises-19m-to-build-the-fundamentally-optimized-evm-212aa066b84f',
-      icon: <DollarSign className={styles.icon} />,
-    },
-    {
-      date: '2024年4月9日',
-      title: '获得 Paradigm 领投 2.25 亿美元 A 轮融资',
-      description: '成为当年区块链领域亮眼融资，推进生态与协议落地。',
-      src: 'https://www.theblockbeats.info/en/flash/245409',
-      icon: <Handshake className={styles.icon} />,
-    },
-    // {
-    //   date: "2024年Q4",
-    //   title: "启动封闭测试网",
-    //   description: "面向早期开发者，试运行并行执行与 MonadBFT 核心功能。",
-    //   icon: <Lock className={styles.icon} />,
-    // },
-    {
-      date: '2025年2月9日',
-      title: '公共测试网上线',
-      description: '向所有开发者开放，支持 10,000 TPS、1 秒单槽确认。',
-      src: 'https://tokeninsight.com/zh/news/monad-to-roll-out-a-public-testnet-on-feb.-19',
+      date: '当前',
+      title: '主网运行中',
+      description: '已支持 130+ 条区块链，处理 $10B+ 跨链资产，成为领先的跨链协议。',
+      src: '',
       icon: <Network className={styles.icon} />,
-    },
-    {
-      date: '2025年2月下旬',
-      title: '测试网交易破 1 亿笔',
-      description: '开放后短期内钱包数量激增，交易量激发生态动能。',
-      src: 'https://www.gate.com/zh/blog/6259/Monad-Testnet-Breaks-100-Million-Transactions--The-Rise-of-a-High-Performance-Monad-Crypto-Blockchaind',
-      icon: <Activity className={styles.icon} />,
-    },
-    {
-      date: '2025年5月5日',
-      title: '启动测试网‑2 验证者阶段',
-      description:
-        'Monad 推出验证者专属 Testnet‑2，将于年底前为主网上线做准备。',
-      src: 'https://www.binance.com/zh-CN/square/post/24006186094818',
-      icon: <ShieldCheck className={styles.icon} />,
     },
   ];
 
@@ -238,44 +159,9 @@ export default function Home() {
 
   const members = [
     {
-      name: 'luluisangry',
-      twitter: 'https://x.com/lulu70191243',
+      name: 'yaco',
+      twitter: 'https://x.com/0xyaco',
       avatar: "lulu.jpg",
-    },
-    {
-      name: 'Harvey C',
-      twitter: 'https://x.com/Harveycww',
-      avatar: "harvey.jpg",
-    },
-    {
-      name: 'Michael',
-      twitter: 'https://x.com/michael_lwy',
-      avatar: "michael.jpg",
-    },
-    {
-      name: 'Box',
-      twitter: 'https://x.com/BoxMrChen',
-      avatar: "box.jpg",
-    },
-    {
-      name: 'Seven',
-      twitter: 'https://x.com/_Seven7777777',
-      avatar: "seven.jpg",
-    },
-    {
-      name: '大大黄',
-      twitter: 'https://x.com/Alger779503577',
-      avatar: "ddh.jpg",
-    },
-    {
-      name: '小符',
-      twitter: 'https://x.com/Phoouze',
-      avatar: "phoouze.jpg",
-    },
-    {
-      name: 'hannah',
-      twitter: 'https://x.com/HhhhHannah',
-      avatar: "hannah.jpg",
     }
   ];
 
@@ -301,7 +187,7 @@ export default function Home() {
             className={`${styles.heroContent} ${isVisible ? styles.heroVisible : ''}`}
           >
             <h1 className={styles.heroTitle}>
-              <span className={styles.heroTitleSecondary}>Monad中文社区</span>
+              <span className={styles.heroTitleSecondary}>Hyperlane中文社区</span>
             </h1>
 
             {/* 标题装饰 */}
@@ -311,7 +197,7 @@ export default function Home() {
             </div>
             <p className={styles.heroSubtitle}>
               <span className={styles.heroHighlight}>
-                加入我们，和 Nads 一起了解、参与、构建 Monad
+                探索跨链互操作的未来，构建连接多链的应用
               </span>
             </p>
             {/* 图片画廊 */}
@@ -328,7 +214,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp1.jpg" 
-                    alt="Monad社区活动1" 
+                    alt="Hyperlane社区活动1" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -340,7 +226,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp2.jpg" 
-                    alt="Monad社区活动2" 
+                    alt="Hyperlane社区活动2" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -352,7 +238,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp3.jpg" 
-                    alt="Monad社区活动3" 
+                    alt="Hyperlane社区活动3" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -364,7 +250,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp4.jpg" 
-                    alt="Monad社区活动4" 
+                    alt="Hyperlane社区活动4" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -376,7 +262,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp6.jpg" 
-                    alt="Monad社区活动5" 
+                    alt="Hyperlane社区活动5" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -388,7 +274,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp7.jpg" 
-                    alt="Monad社区活动6" 
+                    alt="Hyperlane社区活动6" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -400,7 +286,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp8.jpg" 
-                    alt="Monad社区活动7" 
+                    alt="Hyperlane社区活动7" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -412,7 +298,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp9.jpg" 
-                    alt="Monad社区活动8" 
+                    alt="Hyperlane社区活动8" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -424,7 +310,7 @@ export default function Home() {
                 <div className={styles.galleryImage}>
                   <Image 
                     src="/community/cp10.jpg" 
-                    alt="Monad社区活动9" 
+                    alt="Hyperlane社区活动9" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
@@ -445,9 +331,9 @@ export default function Home() {
             </div>
 
             <div className={styles.heroButtons}>
-              <Link href="/monad" className={styles.heroPrimaryButton}>
+              <Link href="/hyperlane" className={styles.heroPrimaryButton}>
                 <Globe className={styles.buttonIcon} />
-                了解 Monad
+                了解 Hyperlane
               </Link>
               <Link href="/events" className={styles.heroSecondaryButton}>
                 <Users className={styles.buttonIcon} />
@@ -506,7 +392,7 @@ export default function Home() {
       <section className={styles.milestones}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>Monad 里程碑</h2>
+            <h2 className={styles.sectionTitle}>Hyperlane 里程碑</h2>
           </div>
           <div className={styles.timeline}>
             <div className={styles.timelineLine}></div>
@@ -548,7 +434,7 @@ export default function Home() {
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>技术特色</h2>
             <p className={styles.sectionDescription}>
-              Monad 采用创新的并行执行引擎和优化的共识机制，为开发者提供前所未有的性能体验
+              Hyperlane 提供模块化的跨链互操作框架，支持多虚拟机和自定义安全模块
             </p>
           </div>
           <div className={styles.featuresGrid}>
@@ -570,75 +456,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* DApp Showcase Section */}
-      <section className={styles.dappShowcase}>
-        <div className={styles.container}>
-          <div className={styles.sectionHeader}>
-            <h2 className={styles.sectionTitle}>生态 DApps</h2>
-            <p className={styles.sectionDescription}>
-              探索正在 Monad 测试网构建和活跃的优秀 DApp 项目
-            </p>
-          </div>
-          <div className={styles.dappsScrollContainer}
-            ref={scrollRef}
-            onMouseEnter={() => setIsHovering(true)}
-            onMouseLeave={() => setIsHovering(false)}
-          >
-            {dapps.map((dapp) => (
-              <div 
-                key={dapp.ID} 
-                className={styles.dappCard} 
-                onClick={() => router.push(`/ecosystem/dapps/${dapp.ID}`)}
-                style={{ cursor: 'pointer' }}
-              >
-                <div className={styles.coverContainer}>
-                  <img src={dapp.cover_img} alt={`${dapp.name} cover`} className={styles.coverImage} />
-                  <div className={styles.cardTop}>
-                    <div className={styles.cardActions}>
-                      {dapp.featured && (
-                        <div className={styles.featuredBadge}>
-                          <Star className={styles.featuredIcon} />
-                        </div>
-                      )}
-                      {dapp.x && (
-                        <Link href={dapp.x} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className={styles.actionButton}>
-                          <SiX className={styles.actionIcon} />
-                        </Link>
-                      )}
-                      {dapp.site && (
-                        <Link href={dapp.site} target="_blank" rel="noopener noreferrer" onClick={(e) => e.stopPropagation()} className={styles.actionButton}>
-                          <Globe className={styles.actionIcon} />
-                        </Link>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                <div className={styles.logoContainer}>
-                  <img src={dapp.logo || "/placeholder.svg"} alt={`${dapp.name} logo`} className={styles.logo} />
-                </div>
-                <div className={styles.cardContent}>
-                  <h3 className={styles.dappName}>{dapp.name}</h3>
-                  <p className={styles.dappDescription}>{dapp.description}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-          <div className={styles.viewMoreWrapper}>
-            <Link href="/ecosystem/dapps" className={styles.viewMoreButton}>
-              查看更多 DApps →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-
       {/* Resources Section */}
       <section className={styles.resources}>
         <div className={styles.container}>
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>开发者资源</h2>
             <p className={styles.sectionDescription}>
-              为开发者提供完整的工具链和资源，让你快速上手Monad开发
+              为开发者提供完整的工具链和资源，让你快速上手Hyperlane开发
             </p>
           </div>
           <div className={styles.resourcesGrid}>
@@ -669,7 +493,7 @@ export default function Home() {
           <div className={styles.sectionHeader}>
             <h2 className={styles.sectionTitle}>贡献者</h2>
             <p className={styles.sectionDescription}>
-              感谢每一位贡献者，并期待更多热爱 Monad 的朋友加入我们，一起共建 Monad。
+              感谢每一位贡献者，并期待更多热爱 Hyperlane 的朋友加入我们，一起共建 Hyperlane。
             </p>
           </div>
 
@@ -731,10 +555,10 @@ export default function Home() {
         </div>
         <div className={styles.container}>
           <div className={styles.ctaContent}>
-            <h2 className={styles.ctaTitle}>准备好加入 Monad 中文社区了吗？</h2>
+            <h2 className={styles.ctaTitle}>准备好加入 Hyperlane 中文社区了吗？</h2>
             <div className={styles.ctaButtons}>
               <Link
-                href="https://x.com/monad_zw"
+                href="https://x.com/hyperlanecc"
                 target="_blank"
                 className={styles.ctaPrimaryButton}
               >
@@ -742,7 +566,7 @@ export default function Home() {
                 关注 X
               </Link>
               <Link
-                href="https://t.me/Chinads"
+                href="https://t.me/hyperlanecc"
                 target="_blank"
                 className={styles.ctaSecondaryButton}
               >
