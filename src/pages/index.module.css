@@ -44,12 +44,12 @@
   position: relative;
   width: 2.5rem;
   height: 2.5rem;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   border-radius: 0.75rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+  box-shadow: var(--shadow-primary-lg);
 }
 
 .logoText {
@@ -61,7 +61,7 @@
 .logoGlow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   border-radius: 0.75rem;
   filter: blur(10px);
   opacity: 0.5;
@@ -71,7 +71,7 @@
 .logoTitle {
   font-size: 1.5rem;
   font-weight: bold;
-  background: linear-gradient(135deg, #1f2937, #6E54FF);
+  background: linear-gradient(135deg, #1f2937, var(--color-brand-primary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -93,7 +93,7 @@
 }
 
 .navItem:hover {
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   transform: scale(1.05);
 }
 
@@ -103,13 +103,13 @@
 }
 
 .navButton {
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
   font-weight: 500;
-  box-shadow: 0 10px 25px rgba(124, 58, 237, 0.25);
+  box-shadow: var(--shadow-primary-lg);
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -162,7 +162,7 @@
 }
 
 .newsBadge {
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   color: white;
   border: 1px solid rgba(124, 58, 237, 0.3);
   padding: 0.25rem 0.75rem;
@@ -170,7 +170,7 @@
   font-size: 0.75rem;
   font-weight: 600;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+  box-shadow: var(--shadow-primary-sm);
   /* 给标签添加轻微阴影以增强可读性 */
 }
 
@@ -297,7 +297,7 @@
   position: absolute;
   width: 4px;
   height: 4px;
-  background: #6366F1;
+  background: var(--color-brand-secondary);
   border-radius: 50%;
   opacity: 0.2;
   animation: pulse 2s infinite;
@@ -324,8 +324,8 @@
 .heroBadge {
   display: inline-block;
   background: rgba(110, 84, 255, 0.15);
-  border: 1px solid rgba(110, 84, 255, 0.3);
-  color: #6E54FF;
+  border: 1px solid var(--primary-300);
+  color: var(--color-brand-primary);
   padding: 0.5rem 1rem;
   border-radius: 16px;
   font-size: 0.875rem;
@@ -378,7 +378,7 @@
 
 
 .heroTitlePrimary {
-  background: linear-gradient(135deg, #1f2937, #6E54FF, #3b82f6);
+  background: linear-gradient(135deg, #1f2937, var(--color-brand-primary), #3b82f6);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -408,7 +408,7 @@
   height: 80px;
   left: 0;
   top: 0;
-  background: linear-gradient(180deg, rgba(110, 84, 255, 0) 0%, #6E54FF 100%);
+  background: linear-gradient(180deg, rgba(110, 84, 255, 0) 0%, var(--color-brand-primary) 100%);
   opacity: 0.5;
 }
 
@@ -418,7 +418,7 @@
   height: 8px;
   left: 0;
   top: 72px;
-  background: #6E54FF;
+  background: var(--color-brand-primary);
 }
 
 .heroSubtitle {
@@ -455,14 +455,14 @@
 }
 
 .heroPrimaryButton {
-  background: #6E54FF;
+  background: var(--color-brand-primary);
   color: white !important;
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 2rem;
   font-size: 1rem;
   font-weight: 600;
-  box-shadow: 0 4px 12px rgba(110, 84, 255, 0.3);
+  box-shadow: var(--shadow-primary-md);
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -473,7 +473,7 @@
 }
 
 .heroPrimaryButton:hover {
-  background: #5b47d1;
+  background: var(--color-interactive-hover);
   color: white !important;
   box-shadow: 0 6px 16px rgba(110, 84, 255, 0.4);
   transform: translateY(-1px);
@@ -483,7 +483,7 @@
 
 .heroSecondaryButton {
   background: rgba(255, 255, 255, 0.9);
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   border: 1px solid rgba(110, 84, 255, 0.2);
   padding: 0.75rem 1.5rem;
   border-radius: 2rem;
@@ -500,10 +500,10 @@
 
 .heroSecondaryButton:hover {
   background: rgba(255, 255, 255, 1);
-  border-color: #6E54FF;
+  border-color: var(--color-brand-primary);
   box-shadow: 0 6px 16px rgba(110, 84, 255, 0.25);
   transform: translateY(-1px);
-  color: #5b47d1;
+  color: var(--color-interactive-hover);
 }
 
 .buttonIcon {
@@ -529,11 +529,11 @@
 }
 
 .heroSecondaryButton .buttonIcon {
-  color: #6E54FF;
+  color: var(--color-brand-primary);
 }
 
 .heroSecondaryButton:hover .buttonIcon {
-  color: #5b47d1;
+  color: var(--color-interactive-hover);
 }
 
 /* Hero Gallery */
@@ -670,12 +670,12 @@
 .galleryNavIcon {
   width: 20px;
   height: 20px;
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   transition: all 0.3s ease;
 }
 
 .galleryNavigation:hover .galleryNavIcon {
-  color: #5b47d1;
+  color: var(--color-interactive-hover);
 }
 
 /* 在触摸设备上隐藏导航按钮 */
@@ -972,8 +972,8 @@
   display: inline-flex;
   padding: 0.75rem;
   border-radius: 50%;
-  background: #f3e8ff;
-  color: #6E54FF;
+  background: var(--primary-100);
+  color: var(--color-brand-primary);
   transition: transform 0.3s ease;
 }
 
@@ -995,7 +995,7 @@
 }
 
 .statItem:hover .statValue {
-  color: #6E54FF;
+  color: var(--color-brand-primary);
 }
 
 .statLabel {
@@ -1082,15 +1082,15 @@
   display: inline-flex;
   padding: 1rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.1), rgba(99, 102, 241, 0.08));
-  color: #6E54FF;
+  background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+  color: var(--color-brand-primary);
   margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
 .featureCard:hover .featureIconWrapper {
   transform: scale(1.03);
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.15), rgba(99, 102, 241, 0.12));
+  background: linear-gradient(135deg, var(--primary-200), var(--primary-100));
 }
 
 .featureIcon {
@@ -1285,10 +1285,10 @@
   bottom: 0;
   width: 5px;
   background: linear-gradient(to bottom,
-      #6E54FF 0%,
-      #6366F1 35%,
-      #8B5CF6 65%,
-      #a78bfa 100%);
+      var(--primary-600) 0%,
+      var(--secondary-500) 35%,
+      var(--primary-500) 65%,
+      var(--primary-400) 100%);
   border-radius: 3px;
   box-shadow: 0 0 16px rgba(110, 84, 255, 0.25);
 }
@@ -1362,16 +1362,16 @@
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   font-weight: 600;
   font-size: 0.875rem;
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.08), rgba(99, 102, 241, 0.06));
+  background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
   padding: 0.4rem 1rem;
   border-radius: 24px;
-  border: 1px solid rgba(110, 84, 255, 0.15);
+  border: 1px solid var(--primary-200);
   backdrop-filter: blur(8px);
   transition: all 0.3s ease;
-  box-shadow: 0 2px 8px rgba(110, 84, 255, 0.08);
+  box-shadow: var(--shadow-primary-sm);
 }
 
 .milestoneDateIcon {
@@ -1392,7 +1392,7 @@
 }
 
 .milestoneContent:hover .milestoneTitle {
-  color: #6E54FF;
+  color: var(--color-brand-primary);
 }
 
 .milestoneContent:hover .milestoneDescription {
@@ -1431,7 +1431,7 @@
   width: 4.2rem;
   height: 4.2rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6E54FF 0%, #6366F1 50%, #8B5CF6 100%);
+  background: linear-gradient(135deg, var(--primary-600) 0%, var(--secondary-500) 50%, var(--primary-500) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1465,7 +1465,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6E54FF, #a78bfa);
+  background: linear-gradient(135deg, var(--primary-600), var(--primary-400));
   filter: blur(10px);
   opacity: 0.5;
   animation: pulse 3s infinite;
@@ -1485,10 +1485,10 @@
 }
 
 .milestoneDateBadge:hover {
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.12), rgba(99, 102, 241, 0.1));
-  border-color: rgba(110, 84, 255, 0.25);
+  background: linear-gradient(135deg, var(--primary-200), var(--primary-100));
+  border-color: var(--primary-300);
   transform: scale(1.02);
-  box-shadow: 0 4px 12px rgba(110, 84, 255, 0.12);
+  box-shadow: var(--shadow-primary-md);
 }
 
 @media (max-width: 767px) {
@@ -1575,15 +1575,15 @@
   display: inline-flex;
   padding: 1rem;
   border-radius: 50%;
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.1), rgba(99, 102, 241, 0.08));
-  color: #6E54FF;
+  background: linear-gradient(135deg, var(--primary-100), var(--primary-50));
+  color: var(--color-brand-primary);
   margin-bottom: 1rem;
   transition: all 0.3s ease;
 }
 
 .resourceCard:hover .resourceIconWrapper {
   transform: scale(1.03);
-  background: linear-gradient(135deg, rgba(110, 84, 255, 0.15), rgba(99, 102, 241, 0.12));
+  background: linear-gradient(135deg, var(--primary-200), var(--primary-100));
 }
 
 .resourceIcon {
@@ -1609,7 +1609,7 @@
 
 .resourceButton {
   width: 100%;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   color: white;
   border: none;
   padding: 0.75rem 1rem;
@@ -1620,9 +1620,9 @@
 }
 
 .resourceButton:hover {
-  background: linear-gradient(135deg, #5b47d1, #4f46e5);
+  background: linear-gradient(135deg, var(--color-interactive-hover), var(--secondary-600));
   transform: translateY(-1px);
-  box-shadow: 0 2px 8px rgba(110, 84, 255, 0.2);
+  box-shadow: var(--shadow-primary-sm);
 }
 
 /* Members Section */
@@ -1734,17 +1734,17 @@
 }
 
 .memberItem:hover .memberName {
-  color: #6E54FF;
+  color: var(--color-brand-primary);
 }
 
 .memberItem:hover .memberTwitter {
-  color: #6366F1;
+  color: var(--color-brand-secondary);
 }
 
 /* CTA Section */
 .cta {
   padding: 5rem 1rem;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   color: white;
   position: relative;
   overflow: hidden;
@@ -1813,7 +1813,7 @@
 
 .ctaPrimaryButton {
   background: white;
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
@@ -1827,7 +1827,7 @@
 
 .ctaPrimaryButton:hover {
   background: #f3f4f6;
-  color: #6E54FF;
+  color: var(--color-brand-primary);
   transform: scale(1.1);
 }
 
@@ -1880,7 +1880,7 @@
   position: relative;
   width: 2rem;
   height: 2rem;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   border-radius: 0.5rem;
   display: flex;
   align-items: center;
@@ -1896,7 +1896,7 @@
 .footerLogoGlow {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, #6E54FF, #6366F1);
+  background: var(--gradient-primary);
   border-radius: 0.5rem;
   filter: blur(10px);
   opacity: 0.5;
@@ -2214,9 +2214,9 @@
 }
 
 .tag {
-  color: #6366F1;
+  color: var(--color-brand-secondary);
   padding: 2px 6px;
-  border-color: #6366F1;
+  border-color: var(--color-brand-secondary);
   border-radius: 4px;
   font-size: 12px;
 }
@@ -2247,8 +2247,8 @@
 }
 
 .viewMoreButton:hover {
-  background: linear-gradient(135deg, #5b47d1 0%, #6E54FF 100%);
+  background: linear-gradient(135deg, var(--color-interactive-hover) 0%, var(--primary-600) 100%);
   color: #fff;
-  box-shadow: 0 4px 12px rgba(110, 84, 255, 0.3);
+  box-shadow: var(--shadow-primary-md);
   transform: translateY(-1px);
 }

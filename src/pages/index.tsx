@@ -114,17 +114,38 @@ export default function Home() {
 
   const milestones = [
     {
-      date: '2022年',
+      date: '2022年初',
       title: 'Abacus Works 成立',
       description:
-        'Abacus Works 团队成立，开始开发 Hyperlane 跨链互操作协议。',
+        'Abacus Works 团队成立，开始开发 Hyperlane 跨链互操作协议，致力于构建开放的区块链互操作性框架。',
       src: '',
       icon: <Rocket className={styles.icon} />,
     },
     {
-      date: '当前',
-      title: '主网运行中',
-      description: '已支持 130+ 条区块链，处理 $10B+ 跨链资产，成为领先的跨链协议。',
+      date: '2022年8月',
+      title: '种子轮融资',
+      description: '完成 $18.5M 种子轮融资，由 Variant 领投，Circle Ventures、Cosmos、1kx 等知名机构参投。',
+      src: '',
+      icon: <DollarSign className={styles.icon} />,
+    },
+    {
+      date: '2022年10月',
+      title: '品牌升级',
+      description: '从 Abacus 正式更名为 Hyperlane，标志着协议发展进入新阶段，专注于跨链互操作性。',
+      src: '',
+      icon: <Star className={styles.icon} />,
+    },
+    {
+      date: '2023年',
+      title: '主网上线',
+      description: 'Hyperlane 主网正式上线，开始为多链生态提供通用消息传递和跨链互操作服务。',
+      src: '',
+      icon: <Rocket className={styles.icon} />,
+    },
+    {
+      date: '2024年',
+      title: '生态扩展',
+      description: '支持链数量达到 130+，累计处理超过 $10B 跨链资产，成为领先的跨链互操作协议。',
       src: '',
       icon: <Network className={styles.icon} />,
     },

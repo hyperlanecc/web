@@ -16,13 +16,6 @@ export interface StatsOverview {
     weekly_growth: number;
     monthly_growth: number;
   };
-  tutorials: {
-    total: number;
-    new_this_Week: number;
-    new_this_Month: number;
-    weekly_growth: number;
-    monthly_growth: number;
-  };
   events: {
     total: number;
     new_this_Week: number;
@@ -44,7 +37,6 @@ export interface TimeSeriesData {
   date: string;
   users: number;
   blogs: number;
-  tutorials: number;
   events: number;
   posts: number;
 }

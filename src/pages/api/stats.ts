@@ -13,7 +13,6 @@ export interface CategoryStats {
 export interface StatsOverview {
   users: CategoryStats;
   blogs: CategoryStats;
-  tutorials: CategoryStats;
   events: CategoryStats;
   posts: CategoryStats;
 }
@@ -22,7 +21,6 @@ export interface TimeSeriesData {
     date: string
     users: number
     blogs: number
-    tutorials: number
     events: number
     posts: number
 }

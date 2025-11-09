@@ -183,51 +183,6 @@ export const createEvent = async (
 //   }
 // };
 
-export const updateEventDraft = async (
-  eventId: string,
-  params: UpdateEventParams
-): Promise<EventResult> => {
-  try {
-    const body = {
-      title: params.title.trim(),
-      desc: params.description.trim(),
-      event_mode: params.event_mode,
-      event_type: params.event_type,
-      location: params.location,
-      link: params.link,
-      start_time: params.start_time,
-      end_time: params.end_time,
-      cover_img: params.cover_img,
-      tags: params.tags ?? [],
-      twitter: params.twitter ?? '',
-      registration_deadline: params.registration_deadline,
-      registration_link: params.registration_link,
-    };
-
-    const response = await apiRequest<EventResult>(
-      `/events/draft/${eventId}`,
-      'PUT',
-      body
-    );
-
-    if (response.code === 200 && response.data) {
-      return {
-        success: true,
-        message: response.message ?? '活动草稿更新成功',
-        data: response.data as unknown as Event,
-      };
-    }
-
-    return { success: false, message: response.message ?? '活动草稿更新失败' };
-  } catch (error: any) {
-    console.error('活动草稿更新异常:', error);
-    return {
-      success: false,
-      message: error?.message ?? '网络错误，请稍后重试',
-    };
-  }
-};
-
 export const updateEvent = async (
   eventId: string,
   params: UpdateEventParams

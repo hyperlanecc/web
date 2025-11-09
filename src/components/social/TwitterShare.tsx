@@ -156,17 +156,6 @@ export const TwitterSharePresets = {
   }),
 
   /**
-   * 教程分享
-   */
-  tutorial: (title: string, description?: string, url?: string) => ({
-    title: `🎓 ${title}`,
-    description: description,
-    url,
-    hashtags: ['教程', 'Web3', 'Hyperlane', '学习'],
-    buttonText: '分享教程',
-  }),
-
-  /**
    * DApp分享
    */
   dapp: (name: string, description?: string, url?: string) => ({

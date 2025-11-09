@@ -326,15 +326,6 @@ export default function StatsIndex() {
             />
 
             <StatsCard
-              title="教程"
-              total={data.overview?.tutorials.total ?? 0}
-              newThisWeek={data.overview?.tutorials.new_this_Week ?? 0}
-              weeklyGrowth={data.overview?.tutorials.weekly_growth ?? 0}
-              icon={<GraduationCap className={styles.cardIconSvg} />}
-              color="#10b981"
-            />
-
-            <StatsCard
               title="活动"
               total={data.overview?.events.total ?? 0}
               newThisWeek={data.overview?.events.new_this_Week ?? 0}

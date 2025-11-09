@@ -113,9 +113,6 @@ export default function NewsletterSection() {
               <h4>生态项目</h4>
               <ul>
                 <li>
-                  <a href="/ecosystem/tutorials">交互教程</a>
-                </li>
-                <li>
                   <a href="/ecosystem/community">社区展示</a>
                 </li>
               </ul>

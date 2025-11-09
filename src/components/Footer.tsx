@@ -20,11 +20,6 @@ export default function Footer() {
             <h3 className={styles.footerSectionTitle}>生态系统</h3>
             <ul className={styles.footerLinks}>
               <li>
-                <Link href="/ecosystem/tutorials" className={styles.footerLink}>
-                  交互教程
-                </Link>
-              </li>
-              <li>
                 <Link href="/ecosystem/community" className={styles.footerLink}>
                   社区展示
                 </Link>

@@ -42,9 +42,23 @@ export default function HyperlaneIntro() {
 
   const founders = [
     {
-      name: "Abacus Works 团队",
-      role: "核心开发团队",
-      background: "由经验丰富的区块链工程师组成，致力于构建开放的跨链互操作协议",
+      name: "Jon Kol",
+      role: "联合创始人",
+      background: "Hyperlane 联合创始人，曾在 Celo 担任关键职位，专注于区块链互操作性和基础设施建设",
+      avatar: "/placeholder.svg",
+      x: "https://twitter.com/jon_kol",
+    },
+    {
+      name: "Asa Oines",
+      role: "联合创始人 & CTO",
+      background: "Hyperlane 联合创始人兼首席技术官，在分布式系统和跨链技术方面具有深厚的技术背景",
+      avatar: "/placeholder.svg",
+      x: "https://twitter.com/asaoines",
+    },
+    {
+      name: "Nam Chu Hoai",
+      role: "联合创始人",
+      background: "Hyperlane 联合创始人，专注于协议设计和生态系统发展",
       avatar: "/placeholder.svg",
       x: "https://twitter.com/Hyperlane",
     },
@@ -52,11 +66,11 @@ export default function HyperlaneIntro() {
 
   const fundingRounds = [
     {
-      date: "信息待更新",
-      round: "融资信息",
-      amount: "待公开",
-      lead: "待公开",
-      description: "Hyperlane 融资信息将在官方公布后更新",
+      date: "2022年8月",
+      round: "种子轮融资",
+      amount: "$18.5M",
+      lead: "Variant",
+      description: "Hyperlane（原 Abacus）完成 1850 万美元种子轮融资，由 Variant 领投，Circle Ventures、Cosmos、1kx、Figment Capital 等知名投资机构参投。",
     },
   ]
 

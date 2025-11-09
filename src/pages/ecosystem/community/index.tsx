@@ -3,25 +3,27 @@ import Head from 'next/head';
 import styles from './index.module.css';
 import { Github } from 'lucide-react';
 
+interface Project {
+    id: number;
+    title: string;
+    description: string;
+    url: string;
+    git: string;
+    category: string;
+}
+
 const Community: NextPage = () => {
-    const projects = [
-        {
-            id: 1,
-            title: '俄罗斯方块',
-            description: '在 Monad 上玩俄罗斯方块多人对战游戏',
-            url: 'https://tetrisx.vercel.app/',
-            git: 'https://github.com/lispking/tetris',
-            category: '链游'
-        },
-        {
-            id: 2,
-            title: '像素贪吃蛇',
-            description: 'Monad 上的像素贪吃蛇游戏',
-            url: 'https://pixel-snake-dx.vercel.app/',
-            git: 'https://github.com/lispking/pixel-snake',
-            category: '链游'
-        },
-        // 可以根据需要添加更多项目
+    const projects: Project[] = [
+        // 待添加 Hyperlane 社区项目
+        // 示例格式：
+        // {
+        //     id: 1,
+        //     title: '项目名称',
+        //     description: '项目描述',
+        //     url: 'https://project-url.com/',
+        //     git: 'https://github.com/username/repo',
+        //     category: '分类'
+        // },
     ];
 
     return (

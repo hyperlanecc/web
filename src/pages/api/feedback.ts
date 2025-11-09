@@ -6,6 +6,12 @@ export interface CreateFeedbackParams {
   email: string;
 }
 
+export interface GetFeedbacksParams {
+  order?: 'asc' | 'desc';
+  page?: number;
+  page_size?: number;
+}
+
 export interface Feedback {
   content?: string;
   url?: string;
@@ -77,8 +83,8 @@ export const createFeedback = async (
   }
 };
 
-// 获取教程列表
-export const getTFeedbacks= async (
+// 获取反馈列表
+export const getFeedbacks = async (
   params: GetFeedbacksParams = {}
 ): Promise<FeedbackListResult> => {
   try {

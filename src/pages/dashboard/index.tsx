@@ -22,7 +22,6 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import styles from './index.module.css';
 import { deleteBlog, getBlogs } from '../api/blog';
-import { deleteTutorial, getTutorials } from '../api/tutorial';
 import { deletePost, getPosts, updatePost, getPostById } from '../api/post';
 import { useAuth } from '@/contexts/AuthContext';
 import AvatarEdit from '@/components/settings/AvatarEdit';
@@ -43,23 +42,16 @@ import { parseMd } from '@/utils/posts';
 
 const { Title, Text } = Typography;
 
-type ActiveTab = 'blogs' | 'tutorials' | 'posts';
+type ActiveTab = 'blogs' | 'posts';
 
 export default function DashboardPage() {
   const { message } = AntdApp.useApp();
   const [activeTab, setActiveTab] = useState<ActiveTab>('posts');
   const [blogs, setBlogs] = useState<any[]>([]);
-  const [tutorials, setTutorials] = useState<any[]>([]);
   const [posts, setPosts] = useState<any[]>([]);
   const [blogsLoading, setBlogsLoading] = useState(false);
-  const [tutorialsLoading, setTutorialsLoading] = useState(false);
   const [postsLoading, setPostsLoading] = useState(false);
   const [blogsPagination, setBlogsPagination] = useState({
-    current: 1,
-    pageSize: 10,
-    total: 0,
-  });
-  const [tutorialsPagination, setTutorialsPagination] = useState({
     current: 1,
     pageSize: 10,
     total: 0,
@@ -130,31 +122,6 @@ export default function DashboardPage() {
     }
   };
 
-  const loadTutorials = async (page = 1, pageSize = 10) => {
-    try {
-      setTutorialsLoading(true);
-      const result = await getTutorials({
-        page,
-        page_size: pageSize,
-        user_id: session?.user?.uid as unknown as number,
-        publish_status: 0,
-      });
-      if (result.success && result.data) {
-        setTutorials(result.data.tutorials || []);
-        setTutorialsPagination({
-          current: result.data.page || 1,
-          pageSize: result.data.page_size || pageSize,
-          total: result.data.total || 0,
-        });
-      }
-    } catch (error) {
-      console.error('加载教程列表失败:', error);
-      setTutorials([]);
-    } finally {
-      setTutorialsLoading(false);
-    }
-  };
-
   const loadPosts = async (page = 1, pageSize = 10) => {
     try {
       setPostsLoading(true);
@@ -194,7 +161,6 @@ export default function DashboardPage() {
   useEffect(() => {
     if (session?.user?.uid) {
       loadBlogs();
-      loadTutorials();
       loadPosts();
     }
   }, [session]);
@@ -228,11 +194,6 @@ export default function DashboardPage() {
       key: 'blogs',
       icon: <FileText className={styles.menuIcon} />,
       label: '我的博客',
-    },
-    {
-      key: 'tutorials',
-      icon: <BookOpen className={styles.menuIcon} />,
-      label: '我的教程',
     },
   ];
 
@@ -312,20 +273,6 @@ export default function DashboardPage() {
     } catch (error: any) {
       message.error('昵称修改异常');
       console.error('昵称修改异常:', error);
-    }
-  };
-
-  const handleDeleteTutorial = async (id: number) => {
-    try {
-      const result = await deleteTutorial(id);
-      if (result.success) {
-        message.success('教程删除成功！');
-        loadTutorials();
-      } else {
-        message.error('删除出错');
-      }
-    } catch (error) {
-      message.error('删除失败，请重试');
     }
   };
 
@@ -590,110 +537,6 @@ export default function DashboardPage() {
               total={blogsPagination.total}
               pageSize={blogsPagination.pageSize}
               onChange={(page, pageSize) => loadBlogs(page, pageSize)}
-              showSizeChanger
-              showQuickJumper
-              showTotal={(total, range) =>
-                `显示 ${range[0]}-${range[1]} 条，共 ${total} 条`
-              }
-            />
-          </div>
-        </Card>
-      );
-    }
-
-    if (activeTab === 'tutorials') {
-      return (
-        <Card className={styles.contentCard}>
-          <div className={styles.cardHeader}>
-            <Title level={3} className={styles.cardTitle}>
-              <BookOpen className={styles.cardIcon} />
-              我的教程
-            </Title>
-          </div>
-          <Divider />
-          <List
-            loading={tutorialsLoading}
-            dataSource={tutorials}
-            renderItem={(tutorial) => (
-              <List.Item
-                key={tutorial.ID}
-                className={styles.listItem}
-                actions={[
-                  <div className={styles.itemMeta}>
-                    <Link href={`/ecosystem/tutorials/${tutorial.ID}/edit`}>
-                      <Edit size={16} className={styles.metaIcon} />
-                    </Link>
-                    <Popconfirm
-                      title="删除教程"
-                      description="你确定删除这个教程吗？"
-                      okText="是"
-                      cancelText="否"
-                      onConfirm={() => handleDeleteTutorial(tutorial.ID)}
-                    >
-                      <Button
-                        type="text"
-                        size="small"
-                        danger
-                        icon={<Trash2 size={16} />}
-                        title="删除教程"
-                        className={styles.metaBtn}
-                      />
-                    </Popconfirm>
-                  </div>,
-                ]}
-              >
-                <div className={styles.itemContent}>
-                  <div className={styles.itemMain}>
-                    <div className={styles.titleRow}>
-                      <Link
-                        href={`/ecosystem/tutorials/${tutorial.ID}`}
-                        className={styles.itemTitle}
-                      >
-                        {tutorial.title}
-                      </Link>
-                      {tutorial.publish_status === 1 && (
-                        <Tag color="orange" style={{ marginLeft: 8 }}>
-                          待审核
-                        </Tag>
-                      )}
-                      {tutorial.publish_status === 2 && (
-                        <Tag color="green" style={{ marginLeft: 8 }}>
-                          已发布
-                        </Tag>
-                      )}
-                      {tutorial.publish_status === 3 && (
-                        <Tag color="red" style={{ marginLeft: 8 }}>
-                          未通过
-                        </Tag>
-                      )}
-                    </div>
-                    <Text type="secondary" className={styles.itemDesc}>
-                      {tutorial.description}
-                    </Text>
-                    <div className={styles.itemFooter}>
-                      <Space>
-                        <Clock size={14} className={styles.itemClock} />
-                        <span>
-                          {dayjs(
-                            tutorial.publish_time || tutorial.CreatedAt
-                          ).format('YYYY-MM-DD HH:MM')}
-                        </span>
-                        <Eye size={16} className={styles.itemClock} />
-                        <span>{tutorial.view_count || 0}</span>
-                      </Space>
-                    </div>
-                  </div>
-                </div>
-              </List.Item>
-            )}
-          />
-
-          <div className={styles.bottomPagination}>
-            <Pagination
-              current={tutorialsPagination.current}
-              total={tutorialsPagination.total}
-              pageSize={tutorialsPagination.pageSize}
-              onChange={(page, pageSize) => loadTutorials(page, pageSize)}
               showSizeChanger
               showQuickJumper
               showTotal={(total, range) =>

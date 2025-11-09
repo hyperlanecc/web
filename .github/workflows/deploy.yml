@@ -1,22 +1,35 @@
-name: Deploy to Production
+name: Deploy to Self-Hosted Server
 
 on:
   workflow_run:
     workflows: ["CI Build Check"]  
     types:
       - completed
+    branches:
+      - main
 
 jobs:
   deploy:
+    name: Deploy to Production Server
     if: ${{ github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
+    
     steps:
-      - name: SSH Deploy
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
-          username: root
+          username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
           script: |
-            bash /root/app/gmonad.cc/deploy.sh
+            cd /root/app/hyperlane.cc
+            bash deploy.sh
 
+      - name: Deployment Status
+        if: success()
+        run: echo "✅ Successfully deployed to production server"
+
+      - name: Deployment Failed
+        if: failure()
+        run: echo "❌ Deployment failed"

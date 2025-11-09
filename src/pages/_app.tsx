@@ -16,7 +16,11 @@ dayjs.locale('zh-cn');
 
 const customTheme = {
   token: {
-    colorPrimary: '#6E54FF',
+    colorPrimary: '#2563eb',       // 主色 - Hyperlane 蓝色
+    colorPrimaryHover: '#3b82f6',  // 悬停色
+    colorPrimaryActive: '#1d4ed8', // 激活色
+    colorLink: '#2563eb',          // 链接色
+    colorLinkHover: '#3b82f6',     // 链接悬停色
   },
 };
 

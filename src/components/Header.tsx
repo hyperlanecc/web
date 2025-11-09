@@ -91,7 +91,6 @@ export default function Header() {
               menu={{
                 items: [
                   { key: 'hyperlane', label: <Link href="/hyperlane">了解 Hyperlane </Link> },
-                  { key: 'tutorials', label: <Link href="/ecosystem/tutorials"> 交互教程 </Link> },
                 ],
               }}
               placement="bottom"
@@ -198,10 +197,6 @@ export default function Header() {
                 <span>🚀</span>
                 <span>了解 Hyperlane</span>
               </Link>
-              <Link href="/ecosystem/tutorials" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
-                <span>📚</span>
-                <span>交互教程</span>
-              </Link>
             </div>
           </div>
 
@@ -265,17 +260,6 @@ export default function Header() {
           </div>
         </div>
       </Drawer>
-      {/* Floating News Banner */}
-      {/* {showNewsBanner && (
-        <div className={styles.floatingNewsBanner}>
-          <div className={styles.newsSlider}>
-            <div className={styles.newsSlide}>
-              <span className={styles.newsBadge}>🔥 热门</span>
-              <span className={styles.newsText}>Monad测试网即将上线！</span>
-            </div>
-          </div>
-        </div>
-      )} */}
     </header>
   );
 }

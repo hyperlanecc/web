@@ -18,7 +18,6 @@ import Link from 'next/link';
 import dayjs from 'dayjs';
 import styles from './index.module.css';
 import { getBlogs } from '../../api/blog';
-import { deleteTutorial, getTutorials } from '../../api/tutorial';
 import { getPosts, getPostById } from '../../api/post';
 import { useAuth } from '@/contexts/AuthContext';
 import PostDetailModal from '@/components/posts/PostDetailModal';
@@ -31,16 +30,14 @@ import { parseMd } from '@/utils/posts';
 
 const { Title, Text } = Typography;
 
-type ActiveTab = 'blogs' | 'tutorials' | 'posts';
+type ActiveTab = 'blogs' | 'posts';
 
 export default function DashboardPage() {
   const { message } = AntdApp.useApp();
   const [activeTab, setActiveTab] = useState<ActiveTab>('posts');
   const [blogs, setBlogs] = useState<any[]>([]);
-  const [tutorials, setTutorials] = useState<any[]>([]);
   const [posts, setPosts] = useState<any[]>([]);
   const [blogsLoading, setBlogsLoading] = useState(false);
-  const [tutorialsLoading, setTutorialsLoading] = useState(false);
   const [postsLoading, setPostsLoading] = useState(false);
   const { session, status } = useAuth();
 
@@ -50,11 +47,6 @@ export default function DashboardPage() {
   const [user, setUser] = useState<User | null>(null);
 
   const [blogsPagination, setBlogsPagination] = useState({
-    current: 1,
-    pageSize: 10,
-    total: 0,
-  });
-  const [tutorialsPagination, setTutorialsPagination] = useState({
     current: 1,
     pageSize: 10,
     total: 0,
@@ -118,31 +110,6 @@ export default function DashboardPage() {
     }
   };
 
-  const loadTutorials = async (page = 1, pageSize = 10) => {
-    try {
-      setTutorialsLoading(true);
-      const result = await getTutorials({
-        page,
-        page_size: pageSize,
-        user_id: userId,
-        publish_status: 0,
-      });
-      if (result.success && result.data) {
-        setTutorials(result.data.tutorials || []);
-        setTutorialsPagination({
-          current: result.data.page || 1,
-          pageSize: result.data.page_size || pageSize,
-          total: result.data.total || 0,
-        });
-      }
-    } catch (error) {
-      console.error('加载教程列表失败:', error);
-      setTutorials([]);
-    } finally {
-      setTutorialsLoading(false);
-    }
-  };
-
   const loadPosts = async (page = 1, pageSize = 10) => {
     try {
       setPostsLoading(true);
@@ -189,7 +156,6 @@ export default function DashboardPage() {
 
     loadUser();
     loadBlogs();
-    loadTutorials();
     loadPosts();
   }, [userId, session?.user?.uid]);
 
@@ -210,29 +176,10 @@ export default function DashboardPage() {
       icon: <FileText className={styles.menuIcon} />,
       label: '博客',
     },
-    {
-      key: 'tutorials',
-      icon: <BookOpen className={styles.menuIcon} />,
-      label: '教程',
-    },
   ];
 
   const handleMenuClick = (key: string) => {
     setActiveTab(key as ActiveTab);
-  };
-
-  const handleDeleteTutorial = async (id: number) => {
-    try {
-      const result = await deleteTutorial(id);
-      if (result.success) {
-        message.success('教程删除成功！');
-        loadTutorials();
-      } else {
-        message.error('删除出错');
-      }
-    } catch (error) {
-      message.error('删除失败，请重试');
-    }
   };
 
   const handlePostClick = async (post: PostType) => {
@@ -331,84 +278,6 @@ export default function DashboardPage() {
               total={blogsPagination.total}
               pageSize={blogsPagination.pageSize}
               onChange={(page, pageSize) => loadBlogs(page, pageSize)}
-              showSizeChanger
-              showQuickJumper
-              showTotal={(total, range) =>
-                `显示 ${range[0]}-${range[1]} 条，共 ${total} 条`
-              }
-            />
-          </div>
-        </Card>
-      );
-    }
-
-    if (activeTab === 'tutorials') {
-      return (
-        <Card className={styles.contentCard}>
-          <div className={styles.cardHeader}>
-            <Title level={3} className={styles.cardTitle}>
-              <BookOpen className={styles.cardIcon} />
-              教程
-            </Title>
-          </div>
-          <Divider />
-          <List
-            loading={tutorialsLoading}
-            dataSource={tutorials}
-            renderItem={(tutorial) => (
-              <List.Item key={tutorial.ID} className={styles.listItem}>
-                <div className={styles.itemContent}>
-                  <div className={styles.itemMain}>
-                    <div className={styles.titleRow}>
-                      <Link
-                        href={`/ecosystem/tutorials/${tutorial.ID}`}
-                        className={styles.itemTitle}
-                      >
-                        {tutorial.title}
-                      </Link>
-                      {tutorial.publish_status === 1 && (
-                        <Tag color="orange" style={{ marginLeft: 8 }}>
-                          待审核
-                        </Tag>
-                      )}
-                      {tutorial.publish_status === 2 && (
-                        <Tag color="green" style={{ marginLeft: 8 }}>
-                          已发布
-                        </Tag>
-                      )}
-                      {tutorial.publish_status === 3 && (
-                        <Tag color="red" style={{ marginLeft: 8 }}>
-                          未通过
-                        </Tag>
-                      )}
-                    </div>
-                    <Text type="secondary" className={styles.itemDesc}>
-                      {tutorial.description}
-                    </Text>
-                    <div className={styles.itemFooter}>
-                      <Space>
-                        <Clock size={14} className={styles.itemClock} />
-                        <span>
-                          {dayjs(
-                            tutorial.publish_time || tutorial.CreatedAt
-                          ).format('YYYY-MM-DD HH:MM')}
-                        </span>
-                        <Eye size={16} className={styles.itemClock} />
-                        <span>{tutorial.view_count || 0}</span>
-                      </Space>
-                    </div>
-                  </div>
-                </div>
-              </List.Item>
-            )}
-          />
-
-          <div className={styles.bottomPagination}>
-            <Pagination
-              current={tutorialsPagination.current}
-              total={tutorialsPagination.total}
-              pageSize={tutorialsPagination.pageSize}
-              onChange={(page, pageSize) => loadTutorials(page, pageSize)}
               showSizeChanger
               showQuickJumper
               showTotal={(total, range) =>

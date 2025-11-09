@@ -2,9 +2,9 @@ name: CI Build Check
 
 on:
   push:
-    branches: [main]
+    branches: [main, dev]
   pull_request:
-    branches: [main]
+    branches: [main, dev]
 
 jobs:
   frontend-build:
@@ -12,29 +12,60 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
         with:
-          node-version: 18
+          submodules: false  # 前端构建不需要子模块
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
+
+      - name: Run linter
+        continue-on-error: true
+        run: npm run lint || true
 
       - name: Build Next.js
         run: npm run build
+        env:
+          NODE_ENV: production
+
+      - name: Cache build
+        uses: actions/cache@v4
+        with:
+          path: .next
+          key: ${{ runner.os }}-nextjs-${{ hashFiles('package-lock.json') }}
 
   backend-build:
     name: Build Go Backend
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
-      - name: Set up Go
+      - name: Checkout code with submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: true  # 后端需要拉取子模块
+
+      - name: Setup Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.22
+          go-version: '1.22'
+          cache-dependency-path: server/go.sum
+
+      - name: Get dependencies
+        working-directory: ./server
+        run: go mod download
 
       - name: Build Go Backend
-        working-directory: ./gmonad
-        run: go build -v .
+        working-directory: ./server
+        run: go build -v -o app .
 
+      - name: Run tests (if available)
+        working-directory: ./server
+        continue-on-error: true
+        run: go test -v ./... || true

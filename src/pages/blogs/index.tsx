@@ -497,7 +497,7 @@ export default function BlogsPage() {
           </div>
           <div className={styles.qrCodeSection}>
             <Image
-              src="/monad_cn_gzh.png?height=200&width=200"
+              src="/hyperlane_wechat.png?height=200&width=200"
               alt="公众号二维码"
               width={200}
               height={200}

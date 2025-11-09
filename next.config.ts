@@ -25,10 +25,15 @@ const nextConfig: NextConfig = {
         protocol: 'https',
         hostname: 'res.cloudinary.com',
       },
-       {
+      {
         protocol: 'https',
         hostname: 'file-cdn.openbuild.xyz',
-         pathname: '/**',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'avatars.githubusercontent.com',
+        pathname: '/**',
       },
     ],
   },
