@@ -60,3 +60,5 @@ Thumbs.db
 
 config/config.yaml
 *config.yaml
+
+.vscode/
