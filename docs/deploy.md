@@ -215,8 +215,9 @@ cd /root/app/hyperlane.cc
 ### 4.2 克隆代码 (包含子模块)
 
 ```bash
-# 替换你的 GitHub 用户名和仓库名
-git clone --recurse-submodules git@github.com:你的用户名/你的仓库名.git .
+# 克隆到 web 子目录
+git clone --recurse-submodules git@github.com:hyperlane/web.git web
+cd web
 ```
 
 ### 4.3 验证克隆
@@ -244,7 +245,7 @@ ls -la server/
 ### 5.1 创建 .env 文件
 
 ```bash
-cd /root/app/hyperlane.cc
+cd /root/app/hyperlane.cc/web
 cp .env.example .env
 ```
 
@@ -314,7 +315,7 @@ openssl rand -base64 32
 ### 6.1 创建配置文件
 
 ```bash
-nano /root/app/hyperlane.cc/server/config.yml
+nano /root/app/hyperlane.cc/web/server/config.yml
 ```
 
 ### 6.2 填入配置
@@ -347,7 +348,7 @@ Ctrl + X → Y → Enter
 ### 7.1 安装前端依赖
 
 ```bash
-cd /root/app/hyperlane.cc
+cd /root/app/hyperlane.cc/web
 pnpm install
 ```
 
@@ -382,7 +383,7 @@ pm2 logs frontend
 
 ```bash
 # 进入后端目录
-cd /root/app/hyperlane.cc/server
+cd /root/app/hyperlane.cc/web/server
 
 # 下载 Go 依赖
 go mod download
@@ -414,8 +415,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/root/app/hyperlane.cc/server
-ExecStart=/root/app/hyperlane.cc/server/app
+WorkingDirectory=/root/app/hyperlane.cc/web/server
+ExecStart=/root/app/hyperlane.cc/web/server/app
 Restart=always
 RestartSec=10
 StandardOutput=journal
@@ -564,7 +565,7 @@ certbot renew --dry-run
 **修改 `.env`**:
 
 ```bash
-nano /root/app/hyperlane.cc/.env
+nano /root/app/hyperlane.cc/web/.env
 ```
 
 把所有 `http://` 改为 `https://`:
@@ -578,7 +579,7 @@ NEXTAUTH_URL=https://你的域名
 **修改 `server/config.yml`**:
 
 ```bash
-nano /root/app/hyperlane.cc/server/config.yml
+nano /root/app/hyperlane.cc/web/server/config.yml
 ```
 
 ```yaml
@@ -599,7 +600,7 @@ oauth:
 
 ```bash
 # 重新构建前端
-cd /root/app/hyperlane.cc
+cd /root/app/hyperlane.cc/web
 pnpm run build
 
 # 重启前端
@@ -627,7 +628,7 @@ systemctl restart nginx
 **每次代码更新后**,只需在服务器执行:
 
 ```bash
-cd /root/app/hyperlane.cc
+cd /root/app/hyperlane.cc/web
 ./deploy.sh
 ```
 
@@ -782,7 +783,7 @@ graph TD
 
 ```bash
 # 1. 备份旧脚本
-cd /root/app/hyperlane.cc
+cd /root/app/hyperlane.cc/web
 mv deploy.sh deploy.sh.old
 
 # 2. 下载新脚本（需要先在 Code 模式中创建）
@@ -808,7 +809,7 @@ GIT_REPO="git@github.com:hyperlane/web.git"
 GIT_BRANCH="main"
 
 # 部署目录
-BASE_DIR="/root/app/hyperlane.cc"
+BASE_DIR="/root/app/hyperlane.cc/web"
 
 # 日志配置
 LOG_FILE="/var/log/hyperlane-deploy.log"

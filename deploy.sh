@@ -7,7 +7,7 @@ GIT_REPO="git@github.com:hyperlane/web.git"
 GIT_BRANCH="main"
 
 # 部署目录
-BASE_DIR="/root/app/hyperlane.cc"
+BASE_DIR="/root/app/hyperlane.cc/web"
 BACKUP_DIR="${BASE_DIR}/.backups"
 TMP_DIR="/tmp/hyperlane_deploy_$(date +%s)"
 
