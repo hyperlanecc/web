@@ -25,7 +25,7 @@ FRONTEND_PORT=3000
 BACKEND_PORT=8080
 
 # 服务名称
-FRONTEND_SERVICE="frontend"
+FRONTEND_SERVICE="hyperlane-web"
 BACKEND_SERVICE="hyperlane-server"
 
 # ==================== 颜色定义 ====================
@@ -297,34 +297,21 @@ setup_repository() {
 deploy_frontend() {
     log_step "开始部署前端..."
     
-    # 在临时目录构建
-    mkdir -p "$TMP_DIR/frontend"
+    cd "$BASE_DIR"
     
-    log_info "复制源代码到临时目录..."
-    rsync -a --exclude='.git' --exclude='node_modules' --exclude='.next' \
-        "$BASE_DIR/" "$TMP_DIR/frontend/"
-    
-    cd "$TMP_DIR/frontend"
-    
-    # 安装依赖
+    # 安装依赖（利用 pnpm 缓存，速度很快）
     log_info "安装前端依赖 (pnpm)..."
-    pnpm install --frozen-lockfile
+    pnpm install --frozen-lockfile --prefer-offline
     
     # 构建
     log_info "构建 Next.js 应用..."
     pnpm run build
-    
-    # 同步到生产目录
-    log_info "同步构建产物到生产目录..."
-    rsync -a --delete "$TMP_DIR/frontend/.next/" "$BASE_DIR/.next/"
-    rsync -a --delete "$TMP_DIR/frontend/node_modules/" "$BASE_DIR/node_modules/"
     
     # 重启服务
     log_info "重启前端服务..."
     if pm2 describe $FRONTEND_SERVICE >/dev/null 2>&1; then
         pm2 reload $FRONTEND_SERVICE --update-env
     else
-        cd "$BASE_DIR"
         pm2 start pnpm --name $FRONTEND_SERVICE -- start
         pm2 save
     fi
