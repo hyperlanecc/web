@@ -282,7 +282,7 @@ export default function Home() {
                 </div>
                 <div className={styles.galleryImage}>
                   <Image 
-                    src="/community/cp6.jpg" 
+                    src="/community/cp5.jpg" 
                     alt="Hyperlane社区活动5" 
                     width={300}
                     height={195}
@@ -294,7 +294,7 @@ export default function Home() {
                 </div>
                 <div className={styles.galleryImage}>
                   <Image 
-                    src="/community/cp7.jpg" 
+                    src="/community/cp6.jpg" 
                     alt="Hyperlane社区活动6" 
                     width={300}
                     height={195}
@@ -306,7 +306,7 @@ export default function Home() {
                 </div>
                 <div className={styles.galleryImage}>
                   <Image 
-                    src="/community/cp8.jpg" 
+                    src="/community/cp7.jpg" 
                     alt="Hyperlane社区活动7" 
                     width={300}
                     height={195}
@@ -318,7 +318,7 @@ export default function Home() {
                 </div>
                 <div className={styles.galleryImage}>
                   <Image 
-                    src="/community/cp9.jpg" 
+                    src="/community/cp8.jpg" 
                     alt="Hyperlane社区活动8" 
                     width={300}
                     height={195}
@@ -330,7 +330,7 @@ export default function Home() {
                 </div>
                 <div className={styles.galleryImage}>
                   <Image 
-                    src="/community/cp10.jpg" 
+                    src="/community/cp9.jpg" 
                     alt="Hyperlane社区活动9" 
                     width={300}
                     height={195}
@@ -340,8 +340,19 @@ export default function Home() {
                     }}
                   />
                 </div>
+                <div className={styles.galleryImage}>
+                  <Image 
+                    src="/community/cp10.jpg" 
+                    alt="Hyperlane社区活动10" 
+                    width={300}
+                    height={195}
+                    style={{ borderRadius: '14px' }}
+                    preview={{
+                      mask: false
+                    }}
+                  />
+                  </div>
               </div>
-
               <button
                 className={`${styles.galleryNavigation} ${styles.galleryNavNext}`}
                 onClick={() => scrollGallery('right')}
