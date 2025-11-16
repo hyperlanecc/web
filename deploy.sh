@@ -51,19 +51,20 @@ log "🔄 更新 Git 子模块..."
 git -C $BASE_DIR submodule update --init --recursive || error "子模块更新失败"
 
 # ================= 前端 =================
-log "📦 构建前端到临时目录..."
-cp -r $BASE_DIR $TMP_DIR/frontend || error "复制前端代码失败"
-cd $TMP_DIR/frontend
+log "📦 直接在生产目录构建前端..."
+cd $BASE_DIR
+
+# 清理旧的构建缓存以节省内存
+log "🧹 清理构建缓存..."
+rm -rf .next/cache
 
 log "📦 安装前端依赖..."
-pnpm install || error "前端依赖安装失败"
+# 限制 Node.js 内存使用，避免 OOM
+export NODE_OPTIONS="--max-old-space-size=768"
+pnpm install --frozen-lockfile || error "前端依赖安装失败"
 
 log "🔨 构建前端..."
 pnpm run build || error "前端构建失败"
-
-log "🚀 同步前端到生产目录..."
-rsync -a --delete $TMP_DIR/frontend/.next/ $BASE_DIR/.next/ || error "前端同步失败"
-rsync -a --delete $TMP_DIR/frontend/node_modules/ $BASE_DIR/node_modules/ || error "依赖同步失败"
 
 log "♻️ 热重载前端服务..."
 pm2 describe $FRONTEND_SERVICE >/dev/null 2>&1 \
@@ -90,6 +91,10 @@ systemctl restart $BACKEND_SERVICE || error "后端服务重启失败"
 # ================= 清理 =================
 log "🧹 清理临时文件..."
 rm -rf $TMP_DIR
+
+# 清理构建缓存以释放内存
+log "🧹 清理构建缓存..."
+rm -rf $BASE_DIR/.next/cache
 
 log "✅ 部署完成！"
 log "前端服务: $FRONTEND_SERVICE (PM2)"
