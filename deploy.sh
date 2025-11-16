@@ -61,7 +61,7 @@ rm -rf .next/cache
 log "📦 安装前端依赖..."
 # 限制 Node.js 内存使用，避免 OOM
 export NODE_OPTIONS="--max-old-space-size=768"
-pnpm install --frozen-lockfile || error "前端依赖安装失败"
+pnpm install || error "前端依赖安装失败"
 
 log "🔨 构建前端..."
 pnpm run build || error "前端构建失败"
