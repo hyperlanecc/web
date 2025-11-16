@@ -67,9 +67,15 @@ log "🔨 构建前端..."
 pnpm run build || error "前端构建失败"
 
 log "♻️ 热重载前端服务..."
-pm2 describe $FRONTEND_SERVICE >/dev/null 2>&1 \
-  && pm2 reload $FRONTEND_SERVICE \
-  || pm2 start pnpm --name $FRONTEND_SERVICE -- start --prefix $BASE_DIR
+# 确保 PM2 日志目录存在
+mkdir -p /var/log/pm2
+
+# 停止旧进程（如果存在）
+pm2 describe $FRONTEND_SERVICE >/dev/null 2>&1 && pm2 delete $FRONTEND_SERVICE || true
+
+# 使用 ecosystem.config.js 启动
+pm2 start $BASE_DIR/ecosystem.config.js --only $FRONTEND_SERVICE || error "前端服务启动失败"
+pm2 save || error "PM2 配置保存失败"
 
 # ================= 后端 =================
 log "🔨 构建后端到临时目录..."
