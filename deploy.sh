@@ -20,9 +20,26 @@ error() {
     exit 1
 }
 
+# ================= 磁盘空间检查 =================
+log "🔍 检查磁盘空间..."
+
+# 检查 /tmp 目录可用空间（至少需要 1GB）
+TMP_AVAILABLE=$(df /tmp | tail -1 | awk '{print $4}')
+if [ $TMP_AVAILABLE -lt 1048576 ]; then
+    error "磁盘空间不足！/tmp 目录可用空间: $(($TMP_AVAILABLE/1024))MB，至少需要: 1GB"
+fi
+
+# 检查项目目录可用空间（至少需要 2GB）
+BASE_AVAILABLE=$(df $BASE_DIR | tail -1 | awk '{print $4}')
+if [ $BASE_AVAILABLE -lt 2097152 ]; then
+    error "磁盘空间不足！项目目录可用空间: $(($BASE_AVAILABLE/1024))MB，至少需要: 2GB"
+fi
+
+log "✓ 磁盘空间充足 (可用: /tmp=$(($TMP_AVAILABLE/1024))MB, 项目目录=$(($BASE_AVAILABLE/1024))MB)"
+
 # ================= 开始部署 =================
-mkdir -p $TMP_DIR
 log "🚀 开始部署 $PROJECT_NAME..."
+mkdir -p $TMP_DIR
 
 # 拉取最新代码
 log "🔄 拉取最新代码..."
