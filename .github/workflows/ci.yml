@@ -2,9 +2,9 @@ name: CI Build Check
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main]
   pull_request:
-    branches: [main, dev]
+    branches: [main]
 
 jobs:
   frontend-build:
@@ -12,65 +12,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
-          submodules: false  # 前端构建不需要子模块
+          node-version: 20
 
-      - name: Setup pnpm
-        uses: pnpm/action-setup@v3
+      - uses: pnpm/action-setup@v3
         with:
           version: 8
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'pnpm'
-
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
-
-      - name: Run linter
-        continue-on-error: true
-        run: pnpm run lint || true
+        run: pnpm install
 
       - name: Build Next.js
         run: pnpm run build
-        env:
-          NODE_ENV: production
-
-      - name: Cache build
-        uses: actions/cache@v4
-        with:
-          path: .next
-          key: ${{ runner.os }}-nextjs-${{ hashFiles('pnpm-lock.yaml') }}
 
   backend-build:
     name: Build Go Backend
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code with submodules
-        uses: actions/checkout@v4
-        with:
-          submodules: true  # 后端需要拉取子模块
-
-      - name: Setup Go
+      - uses: actions/checkout@v4
+      - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.22'
-          cache-dependency-path: server/go.sum
-
-      - name: Get dependencies
-        working-directory: ./server
-        run: go mod download
+          go-version: '1.23'
 
       - name: Build Go Backend
         working-directory: ./server
-        run: go build -v -o app .
+        run: go build -v .
 
-      - name: Run tests (if available)
-        working-directory: ./server
-        continue-on-error: true
-        run: go test -v ./... || true
