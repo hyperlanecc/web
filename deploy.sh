@@ -41,14 +41,23 @@ log "✓ 磁盘空间充足 (可用: /tmp=$(($TMP_AVAILABLE/1024))MB, 项目目�
 log "🚀 开始部署 $PROJECT_NAME..."
 mkdir -p $TMP_DIR
 
-# 拉取最新代码
-log "🔄 拉取最新代码..."
-git -C $BASE_DIR reset --hard || error "Git reset 失败"
-git -C $BASE_DIR pull origin main || error "Git pull 失败"
+# ================= 强制同步最新代码 =================
+log "🔄 强制同步主分支最新代码..."
 
-# 更新子模块
-log "🔄 更新 Git 子模块..."
-git -C $BASE_DIR submodule update --init --recursive || error "子模块更新失败"
+# 1. 重置 web 主项目到 origin/main
+log "  ↳ 重置 web 项目..."
+git -C $BASE_DIR fetch origin || error "Fetch 失败"
+git -C $BASE_DIR reset --hard origin/main || error "Web 重置到 origin/main 失败"
+git -C $BASE_DIR clean -fd || error "清理未跟踪文件失败"
+
+# 2. 强制同步所有子模块到远程 main 分支
+log "  ↳ 强制同步子模块..."
+git -C $BASE_DIR submodule foreach --recursive 'git fetch origin && git reset --hard origin/main && git clean -fd' || error "子模块重置失败"
+
+# 3. 确保子模块初始化
+git -C $BASE_DIR submodule update --init --recursive --remote || error "子模块初始化失败"
+
+log "✓ 代码同步完成 (所有本地修改已丢弃)"
 
 # ================= 前端 =================
 log "📦 直接在生产目录构建前端..."
