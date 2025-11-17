@@ -136,6 +136,7 @@ sudo certbot renew --dry-run
 SSL 证书配置成功后，完整的 Nginx 配置应该类似：
 
 ```nginx
+
 # HTTP 重定向到 HTTPS
 server {
     listen 80;
@@ -146,22 +147,23 @@ server {
 
 # HTTPS 配置
 server {
-    listen 443 ssl http2;
-    listen [::]:443 ssl http2;
+    listen 443 ssl;
+    listen [::]:443 ssl;
+    http2 on; 
     server_name hyperlane.cc www.hyperlane.cc;
 
-    # SSL 证书（Certbot 自动添加）
+    # SSL 证书
     ssl_certificate /etc/letsencrypt/live/hyperlane.cc/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/hyperlane.cc/privkey.pem;
     include /etc/letsencrypt/options-ssl-nginx.conf;
     ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem;
 
-    # 安全头
+    # 安全头（重要！）
     add_header Strict-Transport-Security "max-age=31536000" always;
     add_header X-Frame-Options "SAMEORIGIN" always;
     add_header X-Content-Type-Options "nosniff" always;
 
-    # 前端代理
+    # Next.js 前端
     location / {
         proxy_pass http://localhost:3000;
         proxy_http_version 1.1;
@@ -173,14 +175,14 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
         proxy_cache_bypass $http_upgrade;
         
-        # 超时设置
+        # 超时设置（避免请求超时）
         proxy_connect_timeout 60s;
         proxy_send_timeout 60s;
         proxy_read_timeout 60s;
     }
 
-    # API 后端代理
-    location /api {
+    # 后端 API
+    location /api/ {
         proxy_pass http://localhost:8080;
         proxy_http_version 1.1;
         proxy_set_header Host $host;
@@ -189,7 +191,7 @@ server {
         proxy_set_header X-Forwarded-Proto $scheme;
     }
 
-    # 静态资源缓存
+    # 静态资源缓存（提升性能）
     location ~* \.(jpg|jpeg|png|gif|ico|css|js|svg|woff|woff2|ttf)$ {
         proxy_pass http://localhost:3000;
         expires 30d;
