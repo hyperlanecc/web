@@ -1,22 +1,65 @@
-name: Deploy to Production
+name: Build and Deploy
 
 on:
-  workflow_run:
-    workflows: ["CI Build Check"]  
-    types:
-      - completed
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # 允许手动触发
 
 jobs:
-  deploy:
-    if: ${{ github.event.workflow_run.conclusion == 'success' }}
+  frontend-build:
+    name: Build Next.js Frontend
     runs-on: ubuntu-latest
+
     steps:
-      - name: SSH Deploy
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - uses: pnpm/action-setup@v3
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - name: Build Next.js
+        run: pnpm run build
+
+  backend-build:
+    name: Build Go Backend
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.23'
+
+      - name: Build Go Backend
+        working-directory: ./server
+        run: go build -v .
+
+  deploy:
+    name: Deploy to Production
+    needs: [frontend-build, backend-build]
+    runs-on: ubuntu-latest
+    # 只在推送到 main 分支或手动触发时部署（PR 不部署）
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    
+    steps:
+      - name: Deploy to Server
         uses: appleboy/ssh-action@v1.0.0
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: root
           key: ${{ secrets.SERVER_SSH_KEY }}
           script: |
-            bash /root/app/hyperlane/web/deploy.sh
+            cd /root/app/hyperlane/web
+            bash deploy.sh
 
