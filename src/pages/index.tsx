@@ -180,9 +180,19 @@ export default function Home() {
 
   const members = [
     {
+      name: 'marcus',
+      twitter: 'https://x.com/marcus33l',
+      avatar: "marcus.png",
+    },
+    {
+      name: 'ian',
+      twitter: 'https://x.com/imxy007',
+      avatar: "ian.png",
+    },
+    {
       name: 'yaco',
       twitter: 'https://x.com/0xyaco',
-      avatar: "lulu.jpg",
+      avatar: "yaco.png",
     }
   ];
 

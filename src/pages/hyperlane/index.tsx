@@ -45,22 +45,22 @@ export default function HyperlaneIntro() {
       name: "Jon Kol",
       role: "联合创始人",
       background: "Hyperlane 联合创始人，曾在 Celo 担任关键职位，专注于区块链互操作性和基础设施建设",
-      avatar: "/placeholder.svg",
-      x: "https://twitter.com/jon_kol",
+      avatar: "/avatar/jon_kol.png",
+      x: "https://x.com/thePalenimbus",
     },
     {
       name: "Asa Oines",
       role: "联合创始人 & CTO",
       background: "Hyperlane 联合创始人兼首席技术官，在分布式系统和跨链技术方面具有深厚的技术背景",
-      avatar: "/placeholder.svg",
-      x: "https://twitter.com/asaoines",
+      avatar: "/avatar/asa_oines.png",
+      x: "https://x.com/AsaOines",
     },
     {
       name: "Nam Chu Hoai",
       role: "联合创始人",
       background: "Hyperlane 联合创始人，专注于协议设计和生态系统发展",
-      avatar: "/placeholder.svg",
-      x: "https://twitter.com/Hyperlane",
+      avatar: "/avatar/nam_chu_hoai.png",
+      x: "https://x.com/nambrot",
     },
   ]
 
