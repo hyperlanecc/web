@@ -272,13 +272,23 @@
   z-index: 0;
 }
 
+.heroVideo {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 0;
+}
+
 .heroGradient {
   position: absolute;
   inset: 0;
-  background-image: url('/welcome-bg.png');
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  /* background-image: url('/welcome-bg.png'); */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /* background-repeat: no-repeat; */
+  z-index: 1;
 }
 
 .mouseGradient {

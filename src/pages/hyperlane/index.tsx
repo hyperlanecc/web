@@ -197,57 +197,11 @@ export default function HyperlaneIntro() {
           <div className={styles.heroVisual}>
             <div className={styles.centerContainer}>
               <div className={styles.centerLogo}>
-                <div className={styles.svgContainer}>
-                  <svg
-                    width="600"
-                    height="600"
-                    viewBox="0 0 500 400"
-                    xmlns="http://www.w3.org/2000/svg"
-                    className={styles.logoSvg}
-                  >
-                    <defs>
-                      {/* 阴影滤镜 */}
-                      <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
-                        <feDropShadow dx="0" dy="8" stdDeviation="15" floodColor="#6E54FF" floodOpacity="0.3" />
-                      </filter>
-                    </defs>
-
-                    {/* 中间精细 SVG 菱形 - 调整到新的中心位置 */}
-                    <path
-                      d="M250 50C204.024 50 90.79 163.792 90.79 209.999C90.79 256.206 204.024 370 250 370C295.976 370 409.212 256.204 409.212 209.999C409.212 163.794 295.978 50 250 50ZM225.19 301.492C205.802 296.183 153.676 204.55 158.96 185.066C164.244 165.581 255.424 113.198 274.811 118.508C294.2 123.817 346.325 215.449 341.042 234.934C335.758 254.418 244.577 306.802 225.19 301.492Z"
-                      fill="#836EF9"
-                      filter="url(#dropShadow)"
-                      className={styles.mainDiamond}
-                    />
-
-                    {/* 四个轨道 */}
-                    <circle className={styles.orbit} cx="250" cy="210" r="100" />
-                    <circle className={styles.orbit} cx="250" cy="210" r="140" />
-                    <circle className={styles.orbit} cx="250" cy="210" r="180" />
-                    <circle className={styles.orbit} cx="250" cy="210" r="220" />
-
-                    {/* 第一个轨道上的小点 */}
-                    <g className={styles.group1}>
-                      <circle className={styles.dot} cx="350" cy="210" fill="#ff4ecd" />
-                    </g>
-
-                    {/* 第二个轨道上的小点 */}
-                    <g className={styles.group2}>
-                      <circle className={styles.dot} cx="390" cy="210" fill="#00d084" />
-                    </g>
-
-                    {/* 第三个轨道上的小点 */}
-                    <g className={styles.group3}>
-                      <circle className={styles.dot} cx="430" cy="210" fill="#f5a623" />
-                    </g>
-
-                    {/* 第四个轨道上的小点 */}
-                    <g className={styles.group4}>
-                      <circle className={styles.dot} cx="470" cy="210" fill="#6366F1" />
-                    </g>
-
-                  </svg>
-                </div>
+                <img
+                  src="/Hyperlane Brand Assets/SVG/Logo/Logo Blue (transparent).svg"
+                  alt="Hyperlane Logo"
+                  className={styles.heroLogoImage}
+                />
               </div>
             </div>
           </div>

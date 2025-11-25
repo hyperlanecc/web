@@ -204,6 +204,16 @@ export default function Home() {
       <section className={styles.hero}>
         {/* Animated Background */}
         <div className={styles.heroBackground}>
+          <video
+            className={styles.heroVideo}
+            autoPlay
+            loop
+            muted
+            playsInline
+            poster="/welcome-bg.png"
+          >
+            <source src="/welcome-bg.webm" type="video/webm" />
+          </video>
           <div className={styles.heroGradient}></div>
           <div
             className={styles.mouseGradient}
