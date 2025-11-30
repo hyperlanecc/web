@@ -2,6 +2,8 @@ import { GetStaticProps, GetStaticPaths } from 'next';
 import { useState, useEffect } from 'react';
 import fs from 'fs';
 import path from 'path';
+import matter from 'gray-matter';
+import mermaid from 'mermaid';
 
 import { LeftSidebar } from '@/components/docs/LeftSidebar';
 import { RightSidebar } from '@/components/docs/RightSidebar';
@@ -84,10 +86,32 @@ export default function DocsPage({ content, slug, docsCategories, currentDocTitl
       setHtmlContent(finalHtml);
       setToc(tocData);
       window.scrollTo(0, 0);
+
+      // 初始化 mermaid
+      mermaid.initialize({
+        startOnLoad: false,
+        theme: 'default',
+        securityLevel: 'loose',
+      });
+      
+      // 等待 DOM 更新后渲染 mermaid
+      setTimeout(() => {
+        const mermaidElements = document.querySelectorAll('.mermaid');
+        console.log('Found mermaid elements:', mermaidElements.length);
+        if (mermaidElements.length > 0) {
+          mermaid.run({
+            querySelector: '.mermaid',
+          }).then(() => {
+            console.log('Mermaid rendering complete');
+          }).catch(err => {
+            console.error('Mermaid rendering failed:', err);
+          });
+        }
+      }, 100); // 稍微增加延迟，确保 DOM 已更新
     };
 
     renderMarkdown();
-  }, [content]); 
+  }, [content]);
 
   return (
     <div className={`${styles.container} nav-t-top`}>
@@ -230,7 +254,10 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 
   try {
     // 读取 Markdown 文件内容
-    const content = fs.readFileSync(filePath, 'utf8');
+    const fileContent = fs.readFileSync(filePath, 'utf8');
+
+    // 使用 gray-matter 解析 Frontmatter
+    const { data, content } = matter(fileContent);
 
     // 获取文档分类配置
     const docsCategories = getDocsByCategory();
@@ -239,18 +266,25 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     const docInfo = findDocCategory(slug);
     const currentCategory = docInfo?.category.id || 'introduction';
 
-    // 从 Markdown 内容中提取文档标题
-    // 匹配第一个 # 标题
-    const titleMatch = content.match(/^#\s+(.+)$/m);
-    const currentDocTitle = titleMatch ? titleMatch[1] : (docInfo?.doc.title || slug);
+    // 确定文档标题优先级：
+    // 1. Frontmatter 中的 title
+    // 2. Markdown 内容中的第一个 # 标题
+    // 3. 配置文件中的 title
+    // 4. slug
+    let currentDocTitle = data.title;
+    
+    if (!currentDocTitle) {
+      const titleMatch = content.match(/^#\s+(.+)$/m);
+      currentDocTitle = titleMatch ? titleMatch[1] : (docInfo?.doc.title || slug);
+    }
 
     return {
       props: {
-        content,           
-        slug,             
-        docsCategories,   
-        currentDocTitle,    
-        currentCategory  
+        content, // 传递不含 Frontmatter 的纯内容
+        slug,
+        docsCategories,
+        currentDocTitle,
+        currentCategory
       }
     };
   } catch (error) {

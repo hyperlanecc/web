@@ -72,7 +72,28 @@ const customLineBreakExtension = {
   }
 };
 
-marked.use({ extensions: [customLineBreakExtension] });
+// 自定义 renderer 处理 mermaid 代码块
+const renderer = new marked.Renderer();
+const originalCodeRenderer = renderer.code.bind(renderer);
+
+renderer.code = (token) => {
+  console.log('Renderer code called with:', typeof token, token);
+  // 检查 token 是否有 lang 属性
+  // 适配不同的 marked 版本参数
+  const lang = token.lang || (typeof arguments[1] === 'string' ? arguments[1] : null);
+  const text = token.text || (typeof token === 'string' ? token : '');
+
+  if (lang === 'mermaid') {
+    console.log('Found mermaid code block:', text.substring(0, 20) + '...');
+    return `<div class="mermaid">${text}</div>`;
+  }
+  // 对于其他语言，使用默认的渲染方式
+  // 注意：marked v12+ 的 renderer.code 签名可能有所不同，这里适配旧版和新版
+  // 如果 originalCodeRenderer 需要参数，我们传递它们
+  return originalCodeRenderer(token);
+};
+
+marked.use({ extensions: [customLineBreakExtension], renderer });
 
 export async function parseMarkdown(content: string, options: MarkdownParseOptions = {}): Promise<string> {
   const config = { ...defaultOptions, ...options };
