@@ -70,7 +70,7 @@ const Auth: React.FC = () => {
   const handleSignIn = () => {
     setLoading(true); // 点击按钮时设置为加载状态
     const currentUrl = window.location.origin + router.pathname;
-    const oauthUrl = `${process.env.NEXT_PUBLIC_OAUTH}&redirect_uri=${currentUrl}`;
+    const oauthUrl = `${process.env.NEXT_PUBLIC_OAUTH}`;
     router.push(oauthUrl); // 跳转 OAuth 授权页
   };
 
