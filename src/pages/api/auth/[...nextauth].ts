@@ -36,25 +36,49 @@ export default NextAuth({
       name: 'Credentials',
       credentials: {
         code: { label: 'Code', type: 'text' },
+        token: { label: 'Token', type: 'text' },
+        user: { label: 'User', type: 'text' },
       },
       async authorize(credentials) {
         if (!credentials) return null;
 
-        const { code } = credentials;
-        const loginParams = { code };
+        const { code, token, user } = credentials;
 
-        const res = await loginUser(loginParams);
+        // 1. Token 登录 (优先处理)
+        if (token && user) {
+          try {
+            const userData = JSON.parse(user);
+            return {
+              id: (userData.uid || userData.id || userData.ID).toString(),
+              email: userData.email,
+              username: userData.username,
+              github: userData.github,
+              avatar: userData.avatar,
+              permissions: userData.permissions,
+              token: token,
+            };
+          } catch (e) {
+            console.error('Failed to parse user data for token login', e);
+            return null;
+          }
+        }
 
-        if (res.success && res.data?.ID) {
-          return {
-            id: res.data.ID.toString(),
-            email: res.data.email,
-            username: res.data.username,
-            github: res.data.github,
-            avatar: res.data.avatar,
-            permissions: res.data.permissions,
-            token: res.data.token,
-          };
+        // 2. Code 登录
+        if (code) {
+          const loginParams = { code };
+          const res = await loginUser(loginParams);
+
+          if (res.success && res.data?.ID) {
+            return {
+              id: res.data.ID.toString(),
+              email: res.data.email,
+              username: res.data.username,
+              github: res.data.github,
+              avatar: res.data.avatar,
+              permissions: res.data.permissions,
+              token: res.data.token,
+            };
+          }
         }
 
         return null;

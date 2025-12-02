@@ -13,15 +13,15 @@ const Auth: React.FC = () => {
   // 使用简化的认证上下文，利用 NextAuth 内置缓存机制
   const { session } = useAuth();
   const router = useRouter();
-  const { code } = router.query;
+  const { code, token } = router.query;
   const [loading, setLoading] = useState(false);
   const hasTriedLogin = useRef(false); // 防止重复登录
 
-  // 页面初次加载时检测 query 中的 code 并尝试登录
+  // 页面初次加载时检测 query 中的 code 或 token 并尝试登录
   useEffect(() => {
     const tryLogin = async () => {
-      // 如果已经尝试过登录、已有session、没有code，则跳过
-      if (hasTriedLogin.current || session || !code) {
+      // 如果已经尝试过登录、已有session、没有code且没有token，则跳过
+      if (hasTriedLogin.current || session || (!code && !token)) {
         return;
       }
 
@@ -33,6 +33,42 @@ const Auth: React.FC = () => {
 
         // 使用 AuthManager 确保只有一个登录请求在执行
         const res = await authManager.ensureLogin(async () => {
+          // 优先处理 Token 登录
+          if (token) {
+            try {
+              // 解析 JWT payload
+              const base64Url = (token as string).split('.')[1];
+              const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+              const jsonPayload = decodeURIComponent(
+                atob(base64)
+                  .split('')
+                  .map((c) => '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2))
+                  .join('')
+              );
+              const payload = JSON.parse(jsonPayload);
+
+              // 构造用户信息
+              const userInfo = {
+                uid: payload.uid,
+                email: payload.email,
+                username: payload.username,
+                github: payload.github,
+                avatar: payload.avatar,
+                permissions: payload.permissions,
+              };
+
+              return await signIn('credentials', {
+                redirect: false,
+                token: token as string,
+                user: JSON.stringify(userInfo),
+              });
+            } catch (e) {
+              console.error('Token parse error:', e);
+              throw new Error('Invalid token');
+            }
+          }
+
+          // Code 登录
           return await signIn('credentials', {
             redirect: false,
             code: code as string,
@@ -44,7 +80,7 @@ const Auth: React.FC = () => {
           if (authManager.shouldShowSuccessMessage()) {
             message.success('登录成功');
           }
-          // 清除 URL 中的 code 参数，NextAuth 会自动更新 session 状态
+          // 清除 URL 中的参数，NextAuth 会自动更新 session 状态
           router.replace(router.pathname, undefined, { shallow: true });
         } else {
           message.warning('登录失败...');
@@ -52,7 +88,7 @@ const Auth: React.FC = () => {
         }
       } catch (error) {
         console.error('Login error:', error);
-        message.error('网络错误...');
+        message.error('登录异常...');
         hasTriedLogin.current = false; // 允许重试
       } finally {
         setLoading(false);
@@ -65,7 +101,7 @@ const Auth: React.FC = () => {
     return () => {
       clearTimeout(timer);
     };
-  }, [code, session, router]);
+  }, [code, token, session, router]);
 
   const handleSignIn = () => {
     setLoading(true); // 点击按钮时设置为加载状态
