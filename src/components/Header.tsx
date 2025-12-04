@@ -242,10 +242,6 @@ export default function Header() {
                 <span>📅</span>
                 <span>活动日历</span>
               </Link>
-              <Link href="/posts" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
-                <span>📝</span>
-                <span>社区帖子</span>
-              </Link>
             </div>
           </div>
 

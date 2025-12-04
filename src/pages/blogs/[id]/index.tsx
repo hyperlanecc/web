@@ -155,12 +155,6 @@ export default function BlogDetailPage() {
             <h3 className={styles.description}>{blog.description}</h3>
             <div className={styles.metaInfo}>
               <div className={styles.metaItem}>
-                <Calendar className={styles.metaIcon} />
-                <div className={styles.metaText}>
-                  发布时间：{formatTime(blog.publish_time || blog.CreatedAt)}
-                </div>
-              </div>
-              <div className={styles.metaItem}>
                 <User className={styles.metaIcon} />
                 <div className={styles.metaText}>
                   作者：{blog.author || blog.publisher?.username || ''}

@@ -327,12 +327,6 @@ export default function BlogsPage() {
                         <span className={styles.authorName}>
                           {blog.publisher?.username || ''}
                         </span>
-                        <span className={styles.publishTime}>
-                          {dayjs(blog.publish_time || blog.CreatedAt).format(
-                            'YYYY年M月D日'
-                          )}{' '}
-                          · {blog.read_time || '6 分钟'}阅读
-                        </span>
                       </div>
                       <div className={styles.viewCount}>
                         <Eye size={24} />
