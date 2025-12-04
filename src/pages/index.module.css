@@ -344,10 +344,50 @@
   backdrop-filter: blur(10px);
 }
 
+.heroTitleContainer {
+  width: 100%;
+  max-width: 900px;
+  min-height: 100px;
+  margin: 0 auto;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 2;
+}
+
+.glitchTitle {
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif !important;
+  font-size: clamp(2rem, 6vw, 4rem) !important;
+  font-weight: 900 !important;
+  color: #0E100F !important;
+  letter-spacing: 0.05em;
+  text-shadow: none;
+}
+
+.glitchTitle::after,
+.glitchTitle::before {
+  background-color: transparent !important;
+}
+
+.heroSubTitle {
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
+  font-weight: 700;
+  font-size: 48px;
+  line-height: 1.2;
+  text-align: center;
+  color: #0E100F;
+  margin: 0 auto;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 0 30px rgba(37, 99, 235, 0.1);
+}
+
 .heroTitle {
   width: 546px;
-  height: 172px;
-  font-family: 'Noto Sans SC', sans-serif;
+  height: auto;
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
   font-style: normal;
   font-weight: 700;
   font-size: 72px;
@@ -358,9 +398,11 @@
   text-align: center;
   color: #0E100F;
   margin: 0 auto;
-  margin-bottom: 0;
+  margin-bottom: 1.5rem;
   position: relative;
   z-index: 2;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 40px rgba(37, 99, 235, 0.15);
 }
 
 @media (max-width: 1200px) {
@@ -432,9 +474,10 @@
 }
 
 .heroSubtitle {
-  width: 775px;
-  height: 80px;
-  font-family: 'Noto Sans SC', sans-serif;
+  width: 100%;
+  max-width: 775px;
+  min-height: 50px;
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 24px;
@@ -444,10 +487,17 @@
   text-align: center;
   color: #0E100F;
   margin: 0 auto;
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   justify-content: center;
-  max-width: 775px;
-  margin-top: -2rem;
+  letter-spacing: 0.01em;
+}
+
+.typeText {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 40px;
+  color: #0E100F;
 }
 
 .heroHighlight {
@@ -470,8 +520,10 @@
   border: none;
   padding: 0.75rem 1.5rem;
   border-radius: 2rem;
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
   box-shadow: var(--shadow-primary-md);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -497,8 +549,10 @@
   border: 1px solid rgba(110, 84, 255, 0.2);
   padding: 0.75rem 1.5rem;
   border-radius: 2rem;
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 1rem;
   font-weight: 600;
+  letter-spacing: 0.05em;
   box-shadow: 0 4px 12px rgba(110, 84, 255, 0.15);
   transition: all 0.3s ease;
   cursor: pointer;
@@ -735,6 +789,15 @@
 
 /* Welcome Section 响应式设计 */
 @media (max-width: 1024px) {
+  .heroTitleContainer {
+    height: 100px;
+    max-width: 500px;
+  }
+
+  .heroSubTitle {
+    font-size: 36px;
+  }
+
   .heroTitle {
     width: 100%;
     max-width: 500px;
@@ -742,27 +805,10 @@
     line-height: 72px;
     height: auto;
     min-height: unset;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(60px);
-  }
-
-  .titleDecoration {
-    width: 100%;
-    max-width: 500px;
-    margin-top: -1rem;
-  }
-
-  .decorationGradient {
-    width: 100%;
-    max-width: 500px;
-  }
-
-  .decorationLine {
-    width: 100%;
-    max-width: 500px;
   }
 
   .heroSubtitle {
@@ -772,8 +818,7 @@
     line-height: 32px;
     height: auto;
     padding: 0 1rem;
-    margin-top: -1.5rem;
-    margin-bottom: 0.75rem;
+    margin-bottom: 1rem;
   }
 }
 
@@ -782,12 +827,21 @@
     padding: 1.5rem 1rem;
   }
 
+  .heroTitleContainer {
+    height: 80px;
+    max-width: 400px;
+  }
+
+  .heroSubTitle {
+    font-size: 28px;
+  }
+
   .heroTitle {
     font-size: 48px !important;
     line-height: 56px !important;
     max-width: 400px;
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 1rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -795,21 +849,6 @@
     height: auto !important;
     min-height: unset !important;
     position: relative;
-    transform: translateY(60px) !important;
-  }
-
-  .titleDecoration {
-    max-width: 400px;
-    width: 100%;
-    margin-top: 0rem !important;
-  }
-
-  .decorationGradient {
-    width: 100%;
-  }
-
-  .decorationLine {
-    width: 100%;
   }
 
   .heroSubtitle {
@@ -817,8 +856,7 @@
     line-height: 28px;
     max-width: 500px;
     width: 100%;
-    margin-top: -1.2rem;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 
   .heroGallery {
@@ -858,23 +896,23 @@
   }
 }
 
-@media (max-width: 640px) {
-  .heroTitle {
-    transform: translateY(70px) !important;
-  }
-
-  .titleDecoration {
-    margin-top: 0rem !important;
-  }
-}
 
 @media (max-width: 480px) {
+  .heroTitleContainer {
+    height: 60px;
+    max-width: 300px;
+  }
+
+  .heroSubTitle {
+    font-size: 24px;
+  }
+
   .heroTitle {
     font-size: 36px !important;
     line-height: 56px !important;
     max-width: 300px;
     width: 100%;
-    margin-bottom: 0;
+    margin-bottom: 0.75rem;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -882,13 +920,6 @@
     height: auto !important;
     min-height: unset !important;
     position: relative;
-    transform: translateY(60px) !important;
-  }
-
-  .titleDecoration {
-    max-width: 300px;
-    width: 100%;
-    margin-top: 0rem !important;
   }
 
   .heroSubtitle {
@@ -896,7 +927,6 @@
     line-height: 24px;
     max-width: 320px;
     width: 100%;
-    margin-top: -1rem;
   }
 
   .heroGallery {
@@ -1019,13 +1049,16 @@
 }
 
 .sectionTitle {
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 2.5rem;
-  font-weight: bold;
+  font-weight: 700;
   color: #1f2937;
   margin-bottom: 1rem;
+  letter-spacing: 0.02em;
 }
 
 .sectionDescription {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
   font-size: 1.25rem;
   color: #6b7280;
   max-width: 48rem;
@@ -1109,13 +1142,16 @@
 }
 
 .featureTitle {
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #1f2937;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
 }
 
 .featureDescription {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
   color: #6b7280;
   line-height: 1.6;
 }
@@ -1390,12 +1426,13 @@
 }
 
 .milestoneTitle {
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 1.3rem;
   font-weight: 700;
   color: #1f2937;
   margin-bottom: 0.8rem;
   transition: all 0.3s ease;
-  letter-spacing: -0.01em;
+  letter-spacing: 0.01em;
   line-height: 1.3;
   position: relative;
   z-index: 2;
@@ -1410,6 +1447,7 @@
 }
 
 .milestoneDescription {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
   color: #6b7280;
   line-height: 1.65;
   font-size: 1rem;
@@ -1602,13 +1640,16 @@
 }
 
 .resourceTitle {
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
   font-size: 1.25rem;
-  font-weight: bold;
+  font-weight: 600;
   color: #1f2937;
   margin-bottom: 0.5rem;
+  letter-spacing: 0.01em;
 }
 
 .resourceDescription {
+  font-family: 'Space Grotesk', 'Noto Sans SC', sans-serif;
   color: #6b7280;
   line-height: 1.6;
 }
@@ -1624,7 +1665,9 @@
   border: none;
   padding: 0.75rem 1rem;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
 }
@@ -1801,9 +1844,12 @@
 }
 
 .ctaTitle {
+  font-family: 'Orbitron', 'Noto Sans SC', sans-serif;
   font-size: clamp(2rem, 5vw, 3rem);
-  font-weight: bold;
+  font-weight: 700;
   margin-bottom: 1.5rem;
+  letter-spacing: 0.02em;
+  text-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
 }
 
 .ctaSubtitle {
@@ -1827,7 +1873,9 @@
   border: none;
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;
@@ -1847,7 +1895,9 @@
   border: 1px solid white;
   padding: 0.75rem 2rem;
   border-radius: 0.5rem;
-  font-weight: 500;
+  font-family: 'Rajdhani', 'Noto Sans SC', sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.05em;
   transition: all 0.3s ease;
   cursor: pointer;
   display: flex;

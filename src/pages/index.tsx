@@ -31,6 +31,8 @@ import { SiTelegram, SiX } from 'react-icons/si';
 import { Avatar, Image } from 'antd';
 import EventSection from './events/section';
 import ClientOnly from '../components/ClientOnly';
+import GlitchText from '../components/ui/GlitchText';
+import TextType from '../components/ui/TextType';
 
 export default function Home() {
   const router = useRouter();
@@ -193,6 +195,16 @@ export default function Home() {
       name: 'yaco',
       twitter: 'https://x.com/0xyaco',
       avatar: "yaco.png",
+    },
+    {
+      name: 'Phoouze',
+      twitter: 'https://x.com/Phoouze',
+      avatar: "phoouze.png",
+    },
+    {
+      name: '大大黄',
+      twitter: 'https://x.com/Alger779503577',
+      avatar: "alger.png",
     }
   ];
 
@@ -227,20 +239,29 @@ export default function Home() {
           <div
             className={`${styles.heroContent} ${isVisible ? styles.heroVisible : ''}`}
           >
-            <h1 className={styles.heroTitle}>
-              <span className={styles.heroTitleSecondary}>Hyperlane中文社区</span>
-            </h1>
-
-            {/* 标题装饰 */}
-            <div className={styles.titleDecoration}>
-              <div className={styles.decorationGradient}></div>
-              <div className={styles.decorationLine}></div>
+            <div className={styles.heroTitleContainer}>
+              <GlitchText
+                speed={1.5}
+                enableShadows={true}
+                enableOnHover={true}
+                className={styles.glitchTitle}
+              >
+                Hyperlane 中文社区
+              </GlitchText>
             </div>
-            <p className={styles.heroSubtitle}>
-              <span className={styles.heroHighlight}>
-                探索跨链互操作的未来，构建连接多链的应用
-              </span>
-            </p>
+
+            <div className={styles.heroSubtitle}>
+              <ClientOnly>
+                <TextType
+                  text={["探索跨链互操作的未来", "构建连接多链的应用", "加入 Hyperlane 中文社区"]}
+                  typingSpeed={75}
+                  pauseDuration={2000}
+                  showCursor={true}
+                  cursorCharacter="|"
+                  className={styles.typeText}
+                />
+              </ClientOnly>
+            </div>
             {/* 图片画廊 */}
             <div className={styles.heroGallery}>
               <button
@@ -364,6 +385,18 @@ export default function Home() {
                   <Image 
                     src="/community/cp10.jpg" 
                     alt="Hyperlane社区活动10" 
+                    width={300}
+                    height={195}
+                    style={{ borderRadius: '14px' }}
+                    preview={{
+                      mask: false
+                    }}
+                  />
+                  </div>
+                                  <div className={styles.galleryImage}>
+                  <Image 
+                    src="/community/cp11.jpg" 
+                    alt="Hyperlane社区活动11" 
                     width={300}
                     height={195}
                     style={{ borderRadius: '14px' }}
