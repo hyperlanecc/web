@@ -77,7 +77,7 @@ export default function EventSection() {
                 <div className={styles.sectionHeader}>
                     <h2 className={styles.sectionTitle}>社区活动</h2>
                     <p className={styles.sectionDescription}>
-                        发现精彩活动，链接更多 Nads
+                        发现精彩活动，链接更多可能！
                     </p>
                 </div>
                 <div className={styles.activitiesGrid}>
