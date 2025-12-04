@@ -125,7 +125,6 @@ export default function Header() {
                   { key: 'ama', label: <Link href="/events?type=ama">AMA</Link> },
                   { key: 'meetup', label: <Link href="/events?type=meetup">社区聚会</Link> },
                   { key: 'calendar', label: <Link href="/events/calendar">活动日历</Link> },
-                  { key: 'posts', label: <Link href="/posts">社区帖子</Link> },
                 ],
               }}
               placement="bottom"
