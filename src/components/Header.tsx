@@ -123,7 +123,6 @@ export default function Header() {
                   { key: 'hackathon', label: <Link href="/events?type=hackathon">黑客松</Link> },
                   { key: 'workshop', label: <Link href="/events?type=workshop">Workshop</Link> },
                   { key: 'ama', label: <Link href="/events?type=ama">AMA</Link> },
-                  { key: 'meetup', label: <Link href="/events?type=meetup">社区聚会</Link> },
                   { key: 'calendar', label: <Link href="/events/calendar">活动日历</Link> },
                 ],
               }}
@@ -231,11 +230,6 @@ export default function Header() {
               <Link href="/events?type=ama" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>💬</span>
                 <span>AMA</span>
-              </Link>
-
-              <Link href="/events?type=meetup" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
-                <span>🤝</span>
-                <span>社区聚会</span>
               </Link>
               <Link href="/events/calendar" className={styles.mobileMenuLink} onClick={() => setMobileMenuOpen(false)}>
                 <span>📅</span>
